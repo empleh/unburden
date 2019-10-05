@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { TextInput, View, StyleSheet, ImageBackground, Dimensions } from 'react-native';
+import { Animations } from '../animations';
 import { StyleVariables } from '../style_variables';
 import * as Animatable from 'react-native-animatable';
 
@@ -8,41 +9,21 @@ const MessageEntry = (props: { triggerClear: boolean; onClearComplete: () => voi
     const [message, setMessage] = useState('');
     const animationRef = useRef();
 
-    const dropAnimation = {
-        0: {
-            translateX: 0,
-            translateY: 0,
-        },
-        1: {
-            translateX: 0,
-            translateY: window.height,
-        },
-    };
-
-    const slideInAnimation = {
-        0: {
-            translateX: 100,
-            translateY: -100,
-        },
-        1: {
-            translateX: 0,
-            translateY: 0,
-        },
-    };
-
     useEffect(() => {
         if (props.triggerClear && animationRef && animationRef.current) {
-            // @ts-ignore
-            animationRef.current.animate(dropAnimation, 8000).then(() => {
-                setMessage('');
-
-                // @ts-ignore
-                animationRef.current.animate(slideInAnimation, 1000).then(() => {
-                    props.onClearComplete();
-                });
-            });
+            runClearAnimation();
         }
     }, [props.triggerClear]);
+
+    const runClearAnimation = async () => {
+        // @ts-ignore
+        await animationRef.current.animate(Animations.drop(window.height), 6000);
+        setMessage('');
+
+        // @ts-ignore
+        await animationRef.current.animate(Animations.slideIn(), 500);
+        props.onClearComplete();
+    };
 
     return (
         <Animatable.View ref={animationRef} direction="alternate" useNativeDriver style={styles.wrapper}>

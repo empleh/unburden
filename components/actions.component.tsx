@@ -1,12 +1,22 @@
 import React from 'react';
-import { Button, View } from 'react-native';
+import { Button, StyleSheet, View } from 'react-native';
+import { StyleVariables } from '../style_variables';
 
 const Actions = (props: { unburdenMessage: () => void }) => {
     return (
-        <View style={{ margin: 12, padding: 24, backgroundColor: 'yellow' }}>
-            <Button onPress={props.unburdenMessage} title={'Unburden'} />
+        <View style={styles.actionBar}>
+            <Button onPress={props.unburdenMessage} title={'Shred It'} />
         </View>
     );
 };
+
+const styles = StyleSheet.create({
+    actionBar: {
+        flex: 1,
+        marginTop: StyleVariables.space.standard,
+        padding: StyleVariables.space.large,
+        backgroundColor: 'white'
+    },
+});
 
 export default Actions;
