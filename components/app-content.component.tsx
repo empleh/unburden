@@ -28,10 +28,10 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
     },
     top: {
-        flex: 1,
+        flex: 2,
     },
     bottom: {
-        flex: 1,
+        flex: 3,
     },
 });
 
