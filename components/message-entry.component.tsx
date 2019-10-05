@@ -17,16 +17,16 @@ const MessageEntry = (props: { triggerClear: boolean; onClearComplete: () => voi
 
     const runClearAnimation = async () => {
         // @ts-ignore
-        await animationRef.current.animate(Animations.drop(window.height), 6000);
+        await animationRef.current.animate(Animations.drop(window.height), Animations.mainAnimationTime);
         setMessage('');
 
         // @ts-ignore
-        await animationRef.current.animate(Animations.slideIn(), 500);
+        await animationRef.current.animate(Animations.slideIn(), Animations.secondaryAnimationTime);
         props.onClearComplete();
     };
 
     return (
-        <Animatable.View ref={animationRef} direction="alternate" useNativeDriver style={styles.wrapper}>
+        <Animatable.View ref={animationRef} useNativeDriver style={styles.wrapper}>
             <ImageBackground source={require('../assets/paper.png')} style={styles.paperBackground} resizeMode="stretch">
                 <View style={styles.inputWrapper}>
                     <TextInput style={styles.input} onChangeText={setMessage} value={message} multiline={true} />

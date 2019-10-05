@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, SafeAreaView, Keyboard } from 'react-native';
 import { StyleVariables } from '../style_variables';
 import Actions from './actions.component';
+import BottomAnimation from './bottom-animation.component';
 import MessageEntry from './message-entry.component';
 
 const ApplicationContent = () => {
@@ -24,9 +25,8 @@ const ApplicationContent = () => {
             <View style={styles.actions}>
                 <Actions unburdenMessage={unburdenMessage} />
             </View>
-
             <View style={styles.bottom}>
-                <Text>Bottom animation goes here</Text>
+                <BottomAnimation triggerClear={triggerClear} />
             </View>
         </View>
     );
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     header: {
         textAlign: 'center',
         paddingTop: StyleVariables.space.small,
-        fontSize: 16
+        fontSize: 16,
     },
     top: {
         flex: 4,

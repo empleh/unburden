@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
         flex: 1,
         marginTop: StyleVariables.space.standard,
         padding: StyleVariables.space.large,
-        backgroundColor: 'white'
+        backgroundColor: 'red'
     },
 });
 
