@@ -1,14 +1,57 @@
-import React from 'react';
-import { TextInput, View, StyleSheet, ImageBackground } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { TextInput, View, StyleSheet, ImageBackground, Dimensions } from 'react-native';
 import { StyleVariables } from '../style_variables';
+import * as Animatable from 'react-native-animatable';
 
-const MessageEntry = (props: { message: string; setMessage: (value: string) => void }) => {
+const MessageEntry = (props: { triggerClear: boolean; onClearComplete: () => void }) => {
+    const window = Dimensions.get('window');
+    const [message, setMessage] = useState('');
+    const animationRef = useRef();
+
+    const dropAnimation = {
+        0: {
+            translateX: 0,
+            translateY: 0,
+        },
+        1: {
+            translateX: 0,
+            translateY: window.height,
+        },
+    };
+
+    const slideInAnimation = {
+        0: {
+            translateX: 100,
+            translateY: -100,
+        },
+        1: {
+            translateX: 0,
+            translateY: 0,
+        },
+    };
+
+    useEffect(() => {
+        if (props.triggerClear && animationRef && animationRef.current) {
+            // @ts-ignore
+            animationRef.current.animate(dropAnimation, 8000).then(() => {
+                setMessage('');
+
+                // @ts-ignore
+                animationRef.current.animate(slideInAnimation, 1000).then(() => {
+                    props.onClearComplete();
+                });
+            });
+        }
+    }, [props.triggerClear]);
+
     return (
-        <View style={styles.wrapper}>
+        <Animatable.View ref={animationRef} direction="alternate" useNativeDriver style={styles.wrapper}>
             <ImageBackground source={require('../assets/paper.png')} style={styles.paperBackground} resizeMode="stretch">
-                <TextInput style={styles.paper} onChangeText={props.setMessage} value={props.message} multiline={true} />
+                <View style={styles.inputWrapper}>
+                    <TextInput style={styles.input} onChangeText={setMessage} value={message} multiline={true} />
+                </View>
             </ImageBackground>
-        </View>
+        </Animatable.View>
     );
 };
 
@@ -30,14 +73,18 @@ const styles = StyleSheet.create({
         shadowRadius: 16.0,
 
         elevation: 24,
-        paddingTop: StyleVariables.space.large,
     },
-    paper: {
+    inputWrapper: {
+        paddingTop: StyleVariables.space.large,
+        paddingBottom: StyleVariables.space.large,
+        paddingLeft: StyleVariables.space.large,
+        paddingRight: StyleVariables.space.large,
+    },
+    input: {
         backgroundColor: 'transparent',
         height: '100%',
         width: '100%',
         fontSize: 16,
-        padding: StyleVariables.space.large,
     },
 });
 

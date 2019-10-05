@@ -1,20 +1,24 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, Keyboard } from 'react-native';
 import Actions from './actions.component';
 import MessageEntry from './message-entry.component';
 
 const ApplicationContent = () => {
-    const [message, setMessage] = useState('');
+    const [triggerClear, setClearing] = useState(false);
     const unburdenMessage = () => {
-        setMessage('');
+        Keyboard.dismiss();
+        setClearing(true);
+    };
+    const clearComplete = () => {
+        setClearing(false);
     };
 
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.top}>
                 <Text>Unburden yourself</Text>
-                <MessageEntry message={message} setMessage={setMessage} />
-            </View>
+                <MessageEntry triggerClear={triggerClear} onClearComplete={clearComplete} />
+             </View>
             <View style={styles.bottom}>
                 <Actions unburdenMessage={unburdenMessage} />
             </View>
