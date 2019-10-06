@@ -7,6 +7,7 @@ import * as Animatable from 'react-native-animatable';
 const BottomAnimation = (props: { triggerClear: boolean }) => {
     const window = Dimensions.get('window');
     const [elementHeight, setElementHeight] = useState(0);
+    const [showContent, setShowContent] = useState(false);
     const animationRef = useRef();
 
     useEffect(() => {
@@ -16,11 +17,15 @@ const BottomAnimation = (props: { triggerClear: boolean }) => {
     }, [props.triggerClear]);
 
     const runBottomAnimation = async () => {
+        await Animations.sleep(1000);
+        setShowContent(true);
         // @ts-ignore
-        await animationRef.current.animate(Animations.grow(elementHeight), Animations.mainAnimationTime);
+        await animationRef.current.animate(Animations.grow(elementHeight), Animations.mainAnimationTime / 2);
 
         // @ts-ignore
-        //await animationRef.current.animate(Animations.drop(window.height), Animations.secondaryAnimationTime);
+        await animationRef.current.animate(Animations.drop(window.height), Animations.mainAnimationTime / 2);
+
+        setShowContent(false);
     };
 
     const layoutComplete = event => {
@@ -29,7 +34,7 @@ const BottomAnimation = (props: { triggerClear: boolean }) => {
 
     return (
         <Animatable.View ref={animationRef} useNativeDriver style={styles.wrapper} onLayout={layoutComplete}>
-            <ImageBackground source={require('../assets/paper.png')} style={styles.paperBackground} resizeMode="stretch"></ImageBackground>
+            <ImageBackground source={showContent ? require('../assets/paper.png') : null} style={styles.paperBackground} resizeMode="stretch" />
         </Animatable.View>
     );
 };
