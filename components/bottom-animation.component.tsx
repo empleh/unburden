@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { TextInput, View, StyleSheet, ImageBackground, Dimensions } from 'react-native';
+import { View, StyleSheet, ImageBackground, Dimensions } from 'react-native';
 import { Animations } from '../animations';
 import { StyleVariables } from '../style_variables';
 import * as Animatable from 'react-native-animatable';
@@ -32,9 +32,21 @@ const BottomAnimation = (props: { triggerClear: boolean }) => {
         setElementHeight(event.nativeEvent.layout.height);
     };
 
+    const renderStrips = (strips: number) => {
+        return (
+            <View style={{ flex: 1, flexDirection: 'row' }}>
+                {Array.from(new Array(strips)).map((i, index) => {
+                    return (
+                        <ImageBackground source={showContent ? require('../assets/paper.png') : null} key={`strip_${index}`} style={styles.strip} />
+                    );
+                })}
+            </View>
+        );
+    };
+
     return (
         <Animatable.View ref={animationRef} useNativeDriver style={styles.wrapper} onLayout={layoutComplete}>
-            <ImageBackground source={showContent ? require('../assets/paper.png') : null} style={styles.paperBackground} resizeMode="stretch" />
+            <View style={showContent ? styles.paperBackground : styles.placeholder}>{showContent && renderStrips(16)}</View>
         </Animatable.View>
     );
 };
@@ -42,6 +54,11 @@ const BottomAnimation = (props: { triggerClear: boolean }) => {
 const styles = StyleSheet.create({
     wrapper: {
         padding: StyleVariables.space.large,
+    },
+    placeholder: {
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'white',
     },
     paperBackground: {
         width: '100%',
@@ -56,6 +73,11 @@ const styles = StyleSheet.create({
         shadowRadius: 16.0,
 
         elevation: 24,
+    },
+    strip: {
+        marginLeft: 4,
+        marginRight: 4,
+        flex: 1,
     },
 });
 

@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { Asset } from 'expo-asset';
 import ApplicationContent from './components/app-content.component';
 
-
 export default function App() {
-  return (
-        <ApplicationContent/>
-  );
+    useEffect(() => {
+        Asset.fromModule(require('./assets/paper.png')).downloadAsync();
+    }, []);
+    return <ApplicationContent />;
 }
