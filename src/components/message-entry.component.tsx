@@ -28,7 +28,6 @@ const MessageEntry = (props: { triggerClear: boolean; onClearComplete: () => voi
     const callToAction = 'Express your feelings';
     const sad = 'What\'s got you feeling down?';
     const upset = 'Upset about something?';
-    const secret = 'A secret you need to get off your chest';
     const release = 'Then release it into the universe';
 
     const inputProps = {
@@ -36,7 +35,7 @@ const MessageEntry = (props: { triggerClear: boolean; onClearComplete: () => voi
         onChangeText: setMessage,
         value: message,
         multiline: true,
-        placeholder: `${callToAction}\n\n\n${sad}\n${upset}\n${secret}\n\n\n${release}`,
+        placeholder: `${callToAction}\n\n\n${sad}\n${upset}\n\n\n${release}`,
     };
 
     return (
