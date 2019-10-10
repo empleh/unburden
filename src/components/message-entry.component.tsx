@@ -36,12 +36,12 @@ const MessageEntry = (props: { triggerClear: boolean; onClearComplete: () => voi
         onChangeText: setMessage,
         value: message,
         multiline: true,
-        placeholder: `\n${callToAction}\n\n\n${sad}\n${upset}\n${secret}\n\n\n${release}`,
+        placeholder: `${callToAction}\n\n\n${sad}\n${upset}\n${secret}\n\n\n${release}`,
     };
 
     return (
         <Animatable.View ref={animationRef} useNativeDriver style={styles.wrapper}>
-            <ImageBackground source={require('../assets/paper.png')} style={styles.paperBackground} resizeMode="stretch">
+            <ImageBackground source={require('../../assets/paper.png')} style={styles.paperBackground} resizeMode="stretch">
                 <View style={styles.inputWrapper}>
                     <TextInput {...inputProps} />
                 </View>
@@ -52,7 +52,10 @@ const MessageEntry = (props: { triggerClear: boolean; onClearComplete: () => voi
 
 const styles = StyleSheet.create({
     wrapper: {
-        padding: StyleVariables.space.large,
+        paddingTop: StyleVariables.space.large,
+        paddingBottom: StyleVariables.space.large * 2,
+        paddingLeft: StyleVariables.space.large * 2,
+        paddingRight: StyleVariables.space.large * 2,
         backgroundColor: 'white',
     },
     paperBackground: {

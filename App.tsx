@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Asset } from 'expo-asset';
-import ApplicationContent from './components/app-content.component';
+import ApplicationContent from './src/components/app-content.component';
 
 export default function App() {
     useEffect(() => {

@@ -4,7 +4,7 @@ export class Animations {
     static mainAnimationTime = 6000;
     static secondaryAnimationTime = 500;
 
-    static sleep = time => {
+    static sleep = (time: number) => {
         return new Promise(resolve => setTimeout(resolve, time));
     };
 

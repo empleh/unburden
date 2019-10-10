@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, StyleSheet, ImageBackground, Dimensions } from 'react-native';
+import { View, StyleSheet, ImageBackground, Dimensions, Text } from 'react-native';
 import { Animations } from '../animations';
 import { StyleVariables } from '../style_variables';
 import * as Animatable from 'react-native-animatable';
@@ -28,7 +28,7 @@ const BottomAnimation = (props: { triggerClear: boolean }) => {
         setShowContent(false);
     };
 
-    const layoutComplete = event => {
+    const layoutComplete = (event: any) => {
         setElementHeight(event.nativeEvent.layout.height);
     };
 
@@ -37,7 +37,11 @@ const BottomAnimation = (props: { triggerClear: boolean }) => {
             <View style={{ flex: 1, flexDirection: 'row' }}>
                 {Array.from(new Array(strips)).map((i, index) => {
                     return (
-                        <ImageBackground source={showContent ? require('../assets/paper.png') : null} key={`strip_${index}`} style={styles.strip} />
+                        <ImageBackground
+                            source={showContent ? require('../../assets/paper.png') : null}
+                            key={`strip_${index}`}
+                            style={styles.strip}
+                        />
                     );
                 })}
             </View>
@@ -46,14 +50,20 @@ const BottomAnimation = (props: { triggerClear: boolean }) => {
 
     return (
         <Animatable.View ref={animationRef} useNativeDriver style={styles.wrapper} onLayout={layoutComplete}>
-            <View style={showContent ? styles.paperBackground : styles.placeholder}>{showContent && renderStrips(16)}</View>
+            <View style={showContent ? styles.paperBackground : styles.placeholder}>
+                {showContent && renderStrips(16)}
+
+            </View>
         </Animatable.View>
     );
 };
 
 const styles = StyleSheet.create({
     wrapper: {
-        padding: StyleVariables.space.large,
+        paddingTop: StyleVariables.space.large,
+        paddingBottom: StyleVariables.space.large * 2,
+        paddingLeft: StyleVariables.space.large * 2,
+        paddingRight: StyleVariables.space.large * 2,
     },
     placeholder: {
         width: '100%',

@@ -17,7 +17,7 @@ const ApplicationContent = () => {
         setClearing(false);
     };
 
-    const buttonTop = (window.height / 2) - 72;
+    const buttonTop = window.height / 2 - 60;
 
     return (
         <View style={styles.container}>
@@ -27,15 +27,15 @@ const ApplicationContent = () => {
                 <Text style={styles.header}>Unburden</Text>
                 <MessageEntry triggerClear={triggerClear} onClearComplete={clearComplete} />
             </View>
-            <View style={styles.separator}>
-                <Separator />
-            </View>
+            <Separator animating={triggerClear} />
             <View style={styles.bottom}>
                 <BottomAnimation triggerClear={triggerClear} />
             </View>
-            <View style={[styles.actions, { top: buttonTop }]}>
-                <ReleaseButton unburdenMessage={unburdenMessage} />
-            </View>
+            {!triggerClear && (
+                <View style={[styles.actions, { top: buttonTop }]}>
+                    <ReleaseButton unburdenMessage={unburdenMessage} />
+                </View>
+            )}
         </View>
     );
 };
@@ -54,17 +54,13 @@ const styles = StyleSheet.create({
     top: {
         flex: 4,
     },
-    separator: {
-        flex: 1,
-        marginTop: StyleVariables.space.large,
-    },
     actions: {
         backgroundColor: 'transparent',
         position: 'absolute',
         right: 10,
     },
     bottom: {
-        flex: 4,
+        flex: 3,
         backgroundColor: 'white',
     },
 });
