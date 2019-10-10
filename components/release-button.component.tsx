@@ -7,7 +7,7 @@ const ReleaseButton = (props: { unburdenMessage: () => void }) => {
             width: 200,
             height: 60,
             borderRadius: 30,
-            backgroundColor: 'blue',
+            backgroundColor: '#669277',
             justifyContent: 'center'
         },
     });
