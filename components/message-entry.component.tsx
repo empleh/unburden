@@ -25,11 +25,25 @@ const MessageEntry = (props: { triggerClear: boolean; onClearComplete: () => voi
         props.onClearComplete();
     };
 
+    const callToAction = 'Express your feelings';
+    const sad = 'What\'s got you feeling down?';
+    const upset = 'Upset about something?';
+    const secret = 'A secret you need to get off your chest';
+    const release = 'Then release it into the universe';
+
+    const inputProps = {
+        style: styles.input,
+        onChangeText: setMessage,
+        value: message,
+        multiline: true,
+        placeholder: `\n${callToAction}\n\n\n${sad}\n${upset}\n${secret}\n\n\n${release}`,
+    };
+
     return (
         <Animatable.View ref={animationRef} useNativeDriver style={styles.wrapper}>
             <ImageBackground source={require('../assets/paper.png')} style={styles.paperBackground} resizeMode="stretch">
                 <View style={styles.inputWrapper}>
-                    <TextInput style={styles.input} onChangeText={setMessage} value={message} multiline={true} />
+                    <TextInput {...inputProps} />
                 </View>
             </ImageBackground>
         </Animatable.View>
