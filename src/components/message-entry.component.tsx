@@ -8,6 +8,7 @@ const MessageEntry = (props: { triggerClear: boolean; onClearComplete: () => voi
     const window = Dimensions.get('window');
     const [message, setMessage] = useState('');
     const animationRef = useRef();
+    const inputRef = useRef();
 
     useEffect(() => {
         if (props.triggerClear && animationRef && animationRef.current) {
@@ -23,19 +24,25 @@ const MessageEntry = (props: { triggerClear: boolean; onClearComplete: () => voi
         // @ts-ignore
         await animationRef.current.animate(Animations.slideIn(), Animations.secondaryAnimationTime);
         props.onClearComplete();
+        
+        // @ts-ignore
+        inputRef.current.focus();
     };
 
     const callToAction = 'Express your feelings';
-    const sad = 'What\'s got you feeling down?';
-    const upset = 'Upset about something?';
-    const release = 'Then release it into the universe';
+    const sad = 'Feeling down?';
+    const upset = 'Upset?';
+    const frustrated = 'Frustrated?';
+    const release = 'Release the negativity';
 
     const inputProps = {
         style: styles.input,
         onChangeText: setMessage,
         value: message,
         multiline: true,
-        placeholder: `${callToAction}\n\n\n${sad}\n${upset}\n\n\n${release}`,
+        placeholder: `${upset}\n${frustrated}\n${sad}\n\n\n${callToAction}\n\n\n${release}`,
+        autoFocus: true,
+        ref: inputRef,
     };
 
     return (
