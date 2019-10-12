@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, StyleSheet, ImageBackground, Dimensions, Text } from 'react-native';
+import { View, StyleSheet, ImageBackground, Dimensions } from 'react-native';
 import { Animations } from '../animations';
 import { StyleVariables } from '../style_variables';
 import * as Animatable from 'react-native-animatable';
@@ -49,16 +49,19 @@ const BottomAnimation = (props: { triggerClear: boolean }) => {
     };
 
     return (
-        <Animatable.View ref={animationRef} useNativeDriver style={styles.wrapper} onLayout={layoutComplete}>
-            <View style={showContent ? styles.paperBackground : styles.placeholder}>
-                {showContent && renderStrips(16)}
-
-            </View>
-        </Animatable.View>
+        <View style={styles.bottom}>
+            <Animatable.View ref={animationRef} useNativeDriver style={styles.wrapper} onLayout={layoutComplete}>
+                <View style={showContent ? styles.paperBackground : styles.placeholder}>{showContent && renderStrips(16)}</View>
+            </Animatable.View>
+        </View>
     );
 };
 
 const styles = StyleSheet.create({
+    bottom: {
+        flex: 3,
+        backgroundColor: 'white',
+    },
     wrapper: {
         paddingTop: StyleVariables.space.large,
         paddingBottom: StyleVariables.space.large * 2,

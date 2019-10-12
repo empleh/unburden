@@ -24,7 +24,7 @@ const MessageEntry = (props: { triggerClear: boolean; onClearComplete: () => voi
         // @ts-ignore
         await animationRef.current.animate(Animations.slideIn(), Animations.secondaryAnimationTime);
         props.onClearComplete();
-        
+
         // @ts-ignore
         inputRef.current.focus();
     };
@@ -46,17 +46,22 @@ const MessageEntry = (props: { triggerClear: boolean; onClearComplete: () => voi
     };
 
     return (
-        <Animatable.View ref={animationRef} useNativeDriver style={styles.wrapper}>
-            <ImageBackground source={require('../../assets/paper.png')} style={styles.paperBackground} resizeMode="stretch">
-                <View style={styles.inputWrapper}>
-                    <TextInput {...inputProps} />
-                </View>
-            </ImageBackground>
-        </Animatable.View>
+        <View style={styles.top}>
+            <Animatable.View ref={animationRef} useNativeDriver style={styles.wrapper}>
+                <ImageBackground source={require('../../assets/paper.png')} style={styles.paperBackground} resizeMode="stretch">
+                    <View style={styles.inputWrapper}>
+                        <TextInput {...inputProps} />
+                    </View>
+                </ImageBackground>
+            </Animatable.View>
+        </View>
     );
 };
 
 const styles = StyleSheet.create({
+    top: {
+        flex: 4,
+    },
     wrapper: {
         paddingTop: StyleVariables.space.large,
         paddingBottom: StyleVariables.space.large * 2,
