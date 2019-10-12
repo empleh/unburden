@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { Asset } from 'expo-asset';
-import ApplicationContent from './src/components/app-content.component';
+import AppNavigator from './src/app-navigator.component';
 
 export default function App() {
     useEffect(() => {
         Asset.fromModule(require('./assets/paper.png')).downloadAsync();
     }, []);
-    return <ApplicationContent />;
+
+    return <AppNavigator />;
 }

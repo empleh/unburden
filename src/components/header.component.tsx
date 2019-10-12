@@ -1,17 +1,19 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { StyleVariables } from '../style_variables';
+import { Button, StyleSheet, Text, View } from 'react-native';
+import { INavigationProps } from '../models/navigation-props';
 
-const Header = () => {
+export interface IHeaderProps extends INavigationProps {
+    showBack?: boolean;
+    showWhy?: boolean;
+}
+const Header = (props: IHeaderProps) => {
     return (
         <View style={styles.header}>
-            <View style={styles.side} />
+            <View style={styles.side}>{props.showBack && <Button title={'< Back'} onPress={() => props.navigation.navigate('Home')} />}</View>
             <View style={styles.center}>
                 <Text style={styles.title}>Unburden</Text>
             </View>
-            <View style={styles.side}>
-                <Text>Why?</Text>
-            </View>
+            <View style={styles.side}>{props.showWhy && <Button title={'Why? >'} onPress={() => props.navigation.navigate('Why')} />}</View>
         </View>
     );
 };
@@ -22,7 +24,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     side: {
-        width: 60,
+        width: 100,
         justifyContent: 'center',
     },
     center: {
