@@ -1,14 +1,33 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { TextInput, View, StyleSheet, ImageBackground, Dimensions } from 'react-native';
 import { Animations } from '../animations';
+import { INavigationProps } from '../models/navigation-props';
 import { StyleVariables } from '../style_variables';
 import * as Animatable from 'react-native-animatable';
 
-const MessageEntry = (props: { triggerClear: boolean; onClearComplete: () => void }) => {
+export interface IMessageProps extends INavigationProps {
+    triggerClear: boolean;
+    onClearComplete: () => void;
+}
+
+const MessageEntry = (props: IMessageProps) => {
     const window = Dimensions.get('window');
     const [message, setMessage] = useState('');
     const animationRef = useRef();
     const inputRef = useRef();
+
+    useEffect(() => {
+        const subToFocus = props.navigation.addListener('willFocus', () => {
+            // @ts-ignore
+            inputRef.current.focus();
+        });
+        return () => {
+            if (subToFocus) {
+                // @ts-ignore
+                subToFocus.unsubscribe();
+            }
+        };
+    }, []);
 
     useEffect(() => {
         if (props.triggerClear && animationRef && animationRef.current) {
@@ -29,11 +48,11 @@ const MessageEntry = (props: { triggerClear: boolean; onClearComplete: () => voi
         inputRef.current.focus();
     };
 
-    const callToAction = 'Express your feelings';
-    const sad = 'Feeling down?';
-    const upset = 'Upset?';
-    const frustrated = 'Frustrated?';
-    const release = 'Release the negativity';
+    const callToAction = 'express your feelings';
+    const sad = 'feeling down?';
+    const upset = 'upset?';
+    const frustrated = 'stressed?';
+    const release = 'release the negativity';
 
     const inputProps = {
         style: styles.input,

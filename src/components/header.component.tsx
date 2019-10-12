@@ -17,7 +17,7 @@ const Header = (props: IHeaderProps) => {
     return (
         <View style={styles.header}>
             <View style={styles.side}>
-                <NavButton text="back" onPress={navBack} hide={!props.showBack} style={{ marginLeft: 12 }} />
+                <NavButton text="back" onPress={navBack} hide={!props.showBack} />
             </View>
             <View style={styles.center}>
                 <Text style={styles.title}>Unburden</Text>

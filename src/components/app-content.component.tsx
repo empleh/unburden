@@ -22,7 +22,7 @@ const ApplicationContent = (props: INavigationProps) => {
             <SafeAreaView style={{ flex: 0, backgroundColor: 'white' }} />
 
             <Header navigation={props.navigation} showWhy={true} />
-            <MessageEntry triggerClear={animating} onClearComplete={clearComplete} />
+            <MessageEntry triggerClear={animating} onClearComplete={clearComplete} navigation={props.navigation} />
             <Separator animating={animating} />
             <BottomAnimation triggerClear={animating} />
 
