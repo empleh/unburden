@@ -1,19 +1,31 @@
 import React from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 import { INavigationProps } from '../models/navigation-props';
+import NavButton from './nav-button.component';
 
 export interface IHeaderProps extends INavigationProps {
     showBack?: boolean;
     showWhy?: boolean;
 }
 const Header = (props: IHeaderProps) => {
+    const navBack = () => {
+        props.navigation.navigate('Home');
+    };
+    const navWhy = () => {
+        props.navigation.navigate('Why');
+    };
     return (
         <View style={styles.header}>
-            <View style={styles.side}>{props.showBack && <Button title={'< Back'} onPress={() => props.navigation.navigate('Home')} />}</View>
+            <View style={styles.side}>
+                <NavButton text="back" onPress={navBack} hide={!props.showBack} style={{ marginLeft: 12 }} />
+            </View>
             <View style={styles.center}>
                 <Text style={styles.title}>Unburden</Text>
             </View>
-            <View style={styles.side}>{props.showWhy && <Button title={'Why? >'} onPress={() => props.navigation.navigate('Why')} />}</View>
+
+            <View style={[styles.side, { alignItems: 'flex-end' }]}>
+                <NavButton text="why?" onPress={navWhy} hide={!props.showWhy} style={{ marginRight: 12 }} />
+            </View>
         </View>
     );
 };
@@ -24,7 +36,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     side: {
-        width: 100,
+        width: 80,
         justifyContent: 'center',
     },
     center: {
@@ -33,8 +45,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     title: {
-        fontWeight: '600',
-        fontSize: 24,
+        fontSize: 30,
+        fontFamily: 'title-font',
+        padding: 4,
+        color: '#777',
     },
 });
 
