@@ -6,6 +6,7 @@
     - curl -o app.ipa "$(expo url:ipa --non-interactive)"
 1) expo upload:ios
     - xcrun altool --upload-app -f app.ipa -u USERNAME
+1) expo build:android -t app-bundle
 
 ##Commands
 - sudo chown -R $(whoami) usr/local/lib/node_modules/expo-cli/
