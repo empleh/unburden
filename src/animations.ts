@@ -1,11 +1,23 @@
 import { StyleVariables } from './style_variables';
 
 export class Animations {
-    static mainAnimationTime = 6000;
-    static secondaryAnimationTime = 500;
+    static animationStepTime: number = 3000;
 
     static sleep = (time: number) => {
         return new Promise(resolve => setTimeout(resolve, time));
+    };
+
+    static flyOffPage = (height: number) => {
+        return {
+            from: {
+                translateX: 0,
+                translateY: 0,
+            },
+            to: {
+                translateX: 0,
+                translateY: height * .6,
+            },
+        };
     };
 
     static drop = (windowHeight: number) => {
@@ -51,4 +63,19 @@ export class Animations {
             scaleX: 1,
         };
     };
+
+    static raiseEnvelope(height: number) {
+        const translateYEnd = -1 * (height - StyleVariables.space.large) * .6;
+
+        return {
+            from: {
+                translateX: 0,
+                translateY: 0,
+            },
+            to: {
+                translateX: 0,
+                translateY: translateYEnd,
+            },
+        };
+    }
 }

@@ -1,16 +1,17 @@
 import React, { useEffect, useRef } from 'react';
 import { View } from 'react-native';
+import { IAnimationProps } from '../../models/animation.props';
 import Images from './../../images';
 import SpriteSheet from 'rn-sprite-sheet';
 
-const FireWave = (props: { width: number; runAnimation: boolean; animationComplete: () => void }) => {
+const FireWave = (props: { width: number } & IAnimationProps) => {
     const spriteSheet = useRef();
 
     useEffect(() => {
-        if (props.runAnimation) {
+        if (props.startAnimation) {
             runAnimation();
         }
-    }, [props.runAnimation]);
+    }, [props.startAnimation]);
 
     const runAnimation = () => {
         // @ts-ignore

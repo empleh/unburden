@@ -1,19 +1,21 @@
 import React from 'react';
-import { StyleSheet, Button, View, Dimensions } from 'react-native';
+import { StyleSheet, Button, View } from 'react-native';
+import useKeyboardEvents from '../hooks/keyboard.hooks';
+import sharedStyles from "../sharedStyles";
 
-const ReleaseButton = (props: { unburdenMessage: () => void; animating: boolean }) => {
-    const window = Dimensions.get('window');
+const ReleaseButton = (props: { startAnimation: () => void; animationRunning: boolean }) => {
+    const { keyboardOpen, screenHeight } = useKeyboardEvents();
 
-    if (props.animating) {
+    if (!keyboardOpen || props.animationRunning) {
         return null;
     }
 
-    const buttonTop = window.height / 2 - 60;
+    const buttonTop = screenHeight + 20;
 
     return (
         <View style={[styles.actions, { top: buttonTop }]}>
             <View style={styles.floatingButton}>
-                <Button onPress={props.unburdenMessage} title={'Release It'} color={'white'} />
+                <Button onPress={props.startAnimation} title={'Release It'} color={'white'} />
             </View>
         </View>
     );
@@ -31,6 +33,7 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         backgroundColor: '#669277',
         justifyContent: 'center',
+        ...sharedStyles.elevationLarge,
     },
 });
 

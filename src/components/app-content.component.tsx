@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, SafeAreaView, Keyboard } from 'react-native';
-import { INavigationProps } from "../models/navigation-props";
+import { INavigationProps } from '../models/navigation-props';
 import Header from './header.component';
-import Separator from './separator.component';
-import BottomAnimation from './bottom-animation.component';
 import MessageEntry from './message-entry.component';
 import ReleaseButton from './release-button.component';
 
 const ApplicationContent = (props: INavigationProps) => {
     const [animating, setAnimating] = useState(false);
-    const unburdenMessage = () => {
+    const startAnimation = () => {
         Keyboard.dismiss();
         setAnimating(true);
     };
@@ -22,11 +20,10 @@ const ApplicationContent = (props: INavigationProps) => {
             <SafeAreaView style={{ flex: 0, backgroundColor: 'white' }} />
 
             <Header navigation={props.navigation} showWhy={true} />
-            <MessageEntry triggerClear={animating} onClearComplete={clearComplete} navigation={props.navigation} />
-            <Separator animating={animating} />
-            <BottomAnimation triggerClear={animating} />
 
-            <ReleaseButton unburdenMessage={unburdenMessage} animating={animating} />
+            <MessageEntry navigation={props.navigation} startAnimation={animating} animationComplete={clearComplete} />
+
+            <ReleaseButton startAnimation={startAnimation} animationRunning={animating} />
         </View>
     );
 };
