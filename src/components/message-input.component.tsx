@@ -3,20 +3,40 @@ import { Dimensions, ImageBackground, StyleSheet, TextInput, View } from 'react-
 import * as Animatable from 'react-native-animatable';
 import { Animations } from '../animations';
 import Images from '../images';
+import { INavigationProps } from '../models/navigation-props';
 import sharedStyles from '../sharedStyles';
 import { StyleVariables } from '../style_variables';
 import Envelope from './envelope-wrapper.compnent';
 import { IAnimationProps } from '../models/animation.props';
 
-const MessageInput = (props: IAnimationProps) => {
+const MessageInput = (props: IAnimationProps & INavigationProps) => {
     const window = Dimensions.get('window');
     const [message, setMessage] = useState('');
     const animationRef = useRef();
     const inputRef = useRef();
 
+    const setFocus = () => {
+        if (inputRef && inputRef.current) {
+            // @ts-ignore
+            inputRef.current.focus();
+        }
+    };
+
     useEffect(() => {
-        // @ts-ignore
-        inputRef.current.focus();
+        setFocus();
+    }, []);
+
+    useEffect(() => {
+        const subToFocus = props.navigation.addListener('willFocus', () => {
+            setFocus();
+        });
+        return () => {
+            // @ts-ignore
+            if (subToFocus && subToFocus.unsubscribe) {
+                // @ts-ignore
+                subToFocus.unsubscribe();
+            }
+        };
     }, []);
 
     useEffect(() => {
