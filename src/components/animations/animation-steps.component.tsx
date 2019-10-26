@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Animations } from '../animations';
-import { INavigationProps } from '../models/navigation-props';
-import { StyleVariables } from '../style_variables';
-import AnimationContent from './animations/animation-content.component';
-import AnimationWrapper from './animations/animation-wrapper.component';
-import EnvelopeWrapper from './envelope-wrapper.compnent';
-import MessageInput from './message-input.component';
-import { IAnimationProps } from '../models/animation.props';
+import { Animations } from '../../animations';
+import { INavigationProps } from '../../models/navigation-props';
+import { StyleVariables } from '../../style_variables';
+import AnimationContent from './animation-content.component';
+import AnimationWrapper from './animation-wrapper.component';
+import EnvelopeWrapper from './../envelope-wrapper.compnent';
+import MessageInput from './../message-input.component';
+import { IAnimationProps } from '../../models/animation.props';
 
-const MessageEntry = (props: IAnimationProps & INavigationProps) => {
+const AnimationSteps = (props: IAnimationProps & INavigationProps) => {
     const [animationStep, setAnimationStep] = useState(0);
 
     useEffect(() => {
@@ -71,4 +71,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default MessageEntry;
+export default AnimationSteps;

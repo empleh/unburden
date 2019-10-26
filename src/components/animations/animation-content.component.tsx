@@ -1,10 +1,8 @@
 import React from 'react';
 import { IAnimationProps } from '../../models/animation.props';
 import sharedStyles from '../../sharedStyles';
-import Envelope from '../envelope.compnent';
-import FireWave from './fire-wave.component';
 import { View } from 'react-native';
-import Fireworks from "./fireworks.component";
+import Fireworks from './fireworks.component';
 
 const AnimationContent = (props: IAnimationProps) => {
     const animationChoices = [
@@ -12,11 +10,10 @@ const AnimationContent = (props: IAnimationProps) => {
             component: Fireworks,
             props: {
                 startAnimation: true,
-                width: 300,
                 animationComplete: props.animationComplete,
             },
         },
-/*        {
+        /*        {
             component: FireWave,
             props: {
                 startAnimation: true,
@@ -34,7 +31,6 @@ const AnimationContent = (props: IAnimationProps) => {
 
     return (
         <View style={[sharedStyles.wrapper, sharedStyles.sidePadding]}>
-
             <ChosenAnimation {...chosenAnimationProps} />
             {/*<ShredderAnimation startAnimation={true} animationComplete={props.animationComplete} />*/}
         </View>

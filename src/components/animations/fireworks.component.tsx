@@ -7,7 +7,7 @@ import sharedStyles from "../../sharedStyles";
 import Envelope from '../envelope.compnent';
 import FireWave from './fire-wave.component';
 
-const Fireworks = (props: { width: number } & IAnimationProps) => {
+const Fireworks = (props: IAnimationProps) => {
     const window = Dimensions.get('window');
     const animationRef = useRef();
 
