@@ -23,7 +23,7 @@ const MessageEntry = (props: IAnimationProps & INavigationProps) => {
     const renderAnimationSteps = () => {
         switch (animationStep) {
             case 1:
-                return <MessageInput startAnimation={true} animationComplete={() => setAnimationStep(2)} />;
+                return <MessageInput startAnimation={true} animationComplete={() => setAnimationStep(2)} navigation={props.navigation} />;
             case 2:
                 return <Envelope startAnimation={true} animationComplete={() => setAnimationStep(3)} />;
             case 3:
@@ -31,11 +31,11 @@ const MessageEntry = (props: IAnimationProps & INavigationProps) => {
             case 4:
                 return (
                     <AnimationWrapper animation={Animations.slideIn} animationComplete={props.animationComplete}>
-                        <MessageInput startAnimation={false} />
+                        <MessageInput startAnimation={false} navigation={props.navigation} />
                     </AnimationWrapper>
                 );
             default:
-                return <MessageInput startAnimation={false} />;
+                return <MessageInput startAnimation={false} navigation={props.navigation} />;
         }
     };
 

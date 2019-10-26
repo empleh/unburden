@@ -58,7 +58,7 @@ const MessageInput = (props: IAnimationProps & INavigationProps) => {
     const release = 'release the negativity';
 
     const inputProps = {
-        style: styles.input,
+        style: [styles.input, sharedStyles.alignTextTop],
         onChangeText: setMessage,
         value: message,
         multiline: true,

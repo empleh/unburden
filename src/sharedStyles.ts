@@ -29,6 +29,7 @@ const sharedStyles = StyleSheet.create({
         backgroundColor: 'transparent',
         flex: 1,
     },
+    alignTextTop: { textAlignVertical: 'top' },
 });
 
 export default sharedStyles;
