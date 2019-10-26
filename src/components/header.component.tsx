@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { INavigationProps } from '../models/navigation-props';
 import NavButton from './nav-button.component';
 
@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
     side: {
         width: 80,
         justifyContent: 'center',
+        paddingLeft: 20
     },
     center: {
         flex: 1,

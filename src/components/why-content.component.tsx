@@ -16,12 +16,12 @@ const WhyContent = (props: INavigationProps) => {
 
     const message = `${intro}\n\n${aboutTheStudy}`;
 
-    const callToAction = "Write out your hurtful thoughts and enjoy the refreshing feeling of letting them go";
-    const benefits = "Feel better\n";
+    const callToAction = 'Write out your hurtful thoughts and enjoy the refreshing feeling of letting them go';
+    const benefits = 'Feel better\n';
     const closingMessage = `\n\n${benefits}\n${callToAction}`;
     return (
         <View style={styles.container}>
-            <SafeAreaView style={{ flex: 0, backgroundColor: 'white' }} />
+            <SafeAreaView style={{ flex: 0, backgroundColor: 'white', paddingTop: 40 }} />
 
             <Header navigation={props.navigation} showBack={true} />
 
@@ -43,10 +43,10 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         backgroundColor: 'white',
-        padding: 24,
     },
     message: {
         marginTop: 24,
+        padding: 24
     },
     link: {
         alignItems: 'center',

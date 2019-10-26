@@ -17,7 +17,7 @@ const ApplicationContent = (props: INavigationProps) => {
 
     return (
         <View style={styles.container}>
-            <SafeAreaView style={{ flex: 0, backgroundColor: 'white' }} />
+            <SafeAreaView style={{ flex: 0, backgroundColor: 'white', paddingTop: 40 }} />
 
             <Header navigation={props.navigation} showWhy={true} />
 
