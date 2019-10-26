@@ -6,7 +6,7 @@ import Images from '../images';
 import { INavigationProps } from '../models/navigation-props';
 import sharedStyles from '../sharedStyles';
 import { StyleVariables } from '../style_variables';
-import Envelope from './envelope-wrapper.compnent';
+import EnvelopeWrapper from './envelope-wrapper.compnent';
 import { IAnimationProps } from '../models/animation.props';
 
 const MessageInput = (props: IAnimationProps & INavigationProps) => {
@@ -80,7 +80,7 @@ const MessageInput = (props: IAnimationProps & INavigationProps) => {
                     </View>
                 </ImageBackground>
             </Animatable.View>
-            <Envelope startAnimation={false} />
+            <EnvelopeWrapper startAnimation={false} showEnvelope={props.startAnimation} />
         </View>
     );
 };

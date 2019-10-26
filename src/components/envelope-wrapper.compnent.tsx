@@ -6,7 +6,7 @@ import sharedStyles from '../sharedStyles';
 import { IAnimationProps } from '../models/animation.props';
 import Envelope from './envelope.compnent';
 
-const EnvelopeWrapper = (props: IAnimationProps) => {
+const EnvelopeWrapper = (props: IAnimationProps & {showEnvelope: boolean}) => {
     const animationRef = useRef();
     const window = Dimensions.get('window');
 
@@ -23,9 +23,13 @@ const EnvelopeWrapper = (props: IAnimationProps) => {
         props.animationComplete();
     };
 
+    if (!props.showEnvelope) {
+        return null;
+    }
+
     return (
         <View style={styles.staticEnvelope}>
-            <Animatable.View ref={animationRef} useNativeDriver style={sharedStyles.clearWrapper}>
+            <Animatable.View ref={animationRef} useNativeDriver style={[sharedStyles.clearWrapper]}>
                 <Envelope showClosed={props.startAnimation} />
             </Animatable.View>
         </View>

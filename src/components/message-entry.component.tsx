@@ -5,7 +5,7 @@ import { INavigationProps } from '../models/navigation-props';
 import { StyleVariables } from '../style_variables';
 import AnimationContent from './animations/animation-content.component';
 import AnimationWrapper from './animations/animation-wrapper.component';
-import Envelope from './envelope-wrapper.compnent';
+import EnvelopeWrapper from './envelope-wrapper.compnent';
 import MessageInput from './message-input.component';
 import { IAnimationProps } from '../models/animation.props';
 
@@ -25,7 +25,7 @@ const MessageEntry = (props: IAnimationProps & INavigationProps) => {
             case 1:
                 return <MessageInput startAnimation={true} animationComplete={() => setAnimationStep(2)} navigation={props.navigation} />;
             case 2:
-                return <Envelope startAnimation={true} animationComplete={() => setAnimationStep(3)} />;
+                return <EnvelopeWrapper startAnimation={true} showEnvelope={true} animationComplete={() => setAnimationStep(3)} />;
             case 3:
                 return <AnimationContent startAnimation={true} animationComplete={props.animationComplete} />;
             case 4:

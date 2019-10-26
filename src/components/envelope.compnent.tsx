@@ -54,7 +54,7 @@ const Envelope = (props: { showClosed: boolean }) => {
     };
 
     return (
-        <View style={sharedStyles.clearWrapper}>
+        <View style={[sharedStyles.clearWrapper]}>
             <Svg height="100%" width="100%">
                 {renderBottomTriangle()}
                 {renderLeftTriangle()}
@@ -64,16 +64,5 @@ const Envelope = (props: { showClosed: boolean }) => {
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    staticEnvelope: {
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        backgroundColor: 'transparent',
-        height: '40%',
-    },
-});
 
 export default Envelope;
