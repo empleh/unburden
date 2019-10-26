@@ -65,7 +65,7 @@ export class Animations {
     };
 
     static raiseEnvelope(height: number) {
-        const translateYEnd = -1 * (height - StyleVariables.space.large) * .6;
+        const translateYEnd = -1 * (height - StyleVariables.space.large) * .52;
 
         return {
             from: {

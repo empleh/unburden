@@ -9,6 +9,7 @@ export default function App() {
     useEffect(() => {
         const loadAssets = async () => {
             await Asset.fromModule(require('./assets/paper.png')).downloadAsync();
+            await Asset.fromModule(require('./assets/img/FireWave-1.png')).downloadAsync();
             await Font.loadAsync({
                 'title-font': require('./assets/fonts/Grestal.ttf'),
             });

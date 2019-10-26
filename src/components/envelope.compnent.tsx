@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, StyleSheet, View } from 'react-native';
+import { Dimensions, View } from 'react-native';
 import sharedStyles from '../sharedStyles';
 import { StyleVariables } from '../style_variables';
 import Svg, { Polygon } from 'react-native-svg';
@@ -26,8 +26,8 @@ const Envelope = (props: { showClosed: boolean }) => {
 
     const renderBottomTriangle = () => {
         const firstXY = `${envelopeWidth / 2}, ${envelopeHeight / 2}`;
-        const secondXY = `${StyleVariables.space.small}, ${envelopeHeight}`;
-        const thirdXY = `${envelopeWidth}, ${envelopeHeight}`;
+        const secondXY = `${StyleVariables.space.small}, ${envelopeHeight + 2}`;
+        const thirdXY = `${envelopeWidth}, ${envelopeHeight + 2}`;
 
         const points = `${firstXY} ${secondXY} ${thirdXY}`;
 
@@ -65,20 +65,5 @@ const Envelope = (props: { showClosed: boolean }) => {
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    envelopeBackground: {
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 12,
-        },
-        shadowOpacity: 0.4,
-        shadowRadius: 16,
-        borderBottomLeftRadius: 16,
-        borderBottomRightRadius: 16,
-        borderWidth: 0,
-    },
-});
 
 export default Envelope;

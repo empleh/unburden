@@ -24,9 +24,9 @@ const EnvelopeWrapper = (props: IAnimationProps & { showEnvelope: boolean }) => 
         props.animationComplete();
     };
 
-    /*    if (!props.showEnvelope) {
+    if (!props.showEnvelope) {
         return null;
-    }*/
+    }
 
     return (
         <>
@@ -60,8 +60,8 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         backgroundColor: 'white',
-        height: (StyleVariables.space.large * 2)  + StyleVariables.space.small * 2,
-        zIndex: 1
+        height: StyleVariables.space.large * 2 + StyleVariables.space.small * 2,
+        zIndex: 1,
     },
 });
 

@@ -17,8 +17,8 @@ const FireWave = (props: { width: number } & IAnimationProps) => {
         // @ts-ignore
         spriteSheet.current.play({
             type: 'go',
-            fps: 16,
-            resetAfterFinish: true,
+            fps: 24,
+            resetAfterFinish: false,
             onFinish: () => {
                 props.animationComplete();
             },
