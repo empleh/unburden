@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
     floatingButton: {
         backgroundColor: '#669277',
         justifyContent: 'center',
+        borderRadius: 30,
     },
     buttonText: {
         color: 'white',

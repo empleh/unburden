@@ -7,7 +7,8 @@ import Svg, { Polygon } from 'react-native-svg';
 const Envelope = (props: { showClosed: boolean }) => {
     const window = Dimensions.get('window');
     const envelopeWidth = window.width - (StyleVariables.space.standard * 2 + (StyleVariables.space.large + StyleVariables.space.small));
-    const envelopeHeight = window.height * 0.4 - StyleVariables.space.large * 3;
+    const containerHeight = window.height * 0.36;
+    const envelopeHeight = containerHeight - StyleVariables.space.large * 3;
 
     const renderTopTriangle = () => {
         if (!props.showClosed) {
@@ -64,5 +65,20 @@ const Envelope = (props: { showClosed: boolean }) => {
         </View>
     );
 };
+
+const styles = StyleSheet.create({
+    envelopeBackground: {
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 12,
+        },
+        shadowOpacity: 0.4,
+        shadowRadius: 16,
+        borderBottomLeftRadius: 16,
+        borderBottomRightRadius: 16,
+        borderWidth: 0,
+    },
+});
 
 export default Envelope;

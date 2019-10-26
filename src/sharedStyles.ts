@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { StyleVariables } from './style_variables';
 
 const sharedStyles = StyleSheet.create({
     elevationLarge: {
@@ -17,8 +18,8 @@ const sharedStyles = StyleSheet.create({
         elevation: 24,
     },
     paperBackground: {
-        width: '100%',
-        height: '100%',
+        width: '98%',
+        height: '98%',
         backgroundColor: 'transparent',
     },
     wrapper: {
@@ -30,6 +31,7 @@ const sharedStyles = StyleSheet.create({
         flex: 1,
     },
     alignTextTop: { textAlignVertical: 'top' },
+    sidePadding: { padding: StyleVariables.space.large },
 });
 
 export default sharedStyles;

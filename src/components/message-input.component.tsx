@@ -68,14 +68,14 @@ const MessageInput = (props: IAnimationProps & INavigationProps) => {
     };
 
     return (
-        <View style={sharedStyles.wrapper}>
-            <Animatable.View ref={animationRef} useNativeDriver style={sharedStyles.wrapper}>
+        <View style={[sharedStyles.wrapper, sharedStyles.sidePadding]}>
+            <Animatable.View ref={animationRef} useNativeDriver style={[sharedStyles.wrapper]}>
                 <ImageBackground
                     source={Images.paperBackground}
                     style={[sharedStyles.paperBackground, sharedStyles.elevationLarge]}
                     resizeMode="stretch"
                 >
-                    <View style={styles.inputWrapper}>
+                    <View style={[styles.inputWrapper]}>
                         <TextInput {...inputProps} />
                     </View>
                 </ImageBackground>

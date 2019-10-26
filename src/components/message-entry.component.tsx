@@ -48,11 +48,9 @@ const MessageEntry = (props: IAnimationProps & INavigationProps) => {
 
 const styles = StyleSheet.create({
     top: {
-        height: '100%',
+        flex: 1,
         display: 'flex',
-        paddingTop: StyleVariables.space.large,
-        paddingLeft: StyleVariables.space.large,
-        paddingRight: StyleVariables.space.large,
+        backgroundColor: 'white',
     },
     wrapper: {
         backgroundColor: 'white',
