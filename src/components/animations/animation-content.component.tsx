@@ -3,6 +3,7 @@ import { IAnimationProps } from '../../models/animation.props';
 import sharedStyles from '../../sharedStyles';
 import { View } from 'react-native';
 import Fireworks from './fireworks.component';
+import ShredAnimation from './shred-animation.component';
 
 const AnimationContent = (props: IAnimationProps) => {
     const animationChoices = [
@@ -13,8 +14,8 @@ const AnimationContent = (props: IAnimationProps) => {
                 animationComplete: props.animationComplete,
             },
         },
-        /*        {
-            component: FireWave,
+        /*      {
+            component: ShredAnimation,
             props: {
                 startAnimation: true,
                 width: 100,
@@ -32,7 +33,6 @@ const AnimationContent = (props: IAnimationProps) => {
     return (
         <View style={[sharedStyles.wrapper, sharedStyles.sidePadding]}>
             <ChosenAnimation {...chosenAnimationProps} />
-            {/*<ShredderAnimation startAnimation={true} animationComplete={props.animationComplete} />*/}
         </View>
     );
 };

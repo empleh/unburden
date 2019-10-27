@@ -9,14 +9,14 @@ import { StyleVariables } from '../style_variables';
 import EnvelopeWrapper from './envelope-wrapper.compnent';
 import { IAnimationProps } from '../models/animation.props';
 
-const MessageInput = (props: IAnimationProps & INavigationProps) => {
+const MessageInput = (props: { blockKeyboard?: boolean } & IAnimationProps & INavigationProps) => {
     const window = Dimensions.get('window');
     const [message, setMessage] = useState('');
     const animationRef = useRef();
     const inputRef = useRef();
 
     const setFocus = () => {
-        if (inputRef && inputRef.current) {
+        if (inputRef && inputRef.current && !props.blockKeyboard) {
             // @ts-ignore
             inputRef.current.focus();
         }
@@ -63,7 +63,7 @@ const MessageInput = (props: IAnimationProps & INavigationProps) => {
         value: message,
         multiline: true,
         placeholder: `${upset}    ${frustrated}\n\n${callToAction}\n\n${release}`,
-        autoFocus: true,
+        autoFocus: !props.blockKeyboard,
         ref: inputRef,
     };
 

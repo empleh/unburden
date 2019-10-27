@@ -32,6 +32,7 @@ const sharedStyles = StyleSheet.create({
     },
     alignTextTop: { textAlignVertical: 'top' },
     sidePadding: { padding: StyleVariables.space.large },
+    seeMe: { width: '100%', height: '100%', backgroundColor: 'red' },
 });
 
 export default sharedStyles;

@@ -1,16 +1,24 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as Animatable from 'react-native-animatable';
 import { Animations } from '../../animations';
+import { IAnimationProps } from '../../models/animation.props';
 import sharedStyles from '../../sharedStyles';
 
-const AnimationWrapper = (props: { animation: () => void; animationComplete: () => void; children?: {} }) => {
+const AnimationWrapper = (props: { animation: () => void; children?: {} } & IAnimationProps) => {
     const animationRef = useRef();
+    const [showChildren, setShowChildren] = useState(false);
 
     useEffect(() => {
-        runAnimation();
-    }, []);
+        if (props.startAnimation) {
+            runAnimation();
+        }
+    }, [props.startAnimation]);
 
     const runAnimation = async () => {
+        setTimeout(() => {
+            setShowChildren(true);
+        }, 100);
+
         // @ts-ignore
         await animationRef.current.animate(props.animation(), Animations.animationStepTime);
 
@@ -19,7 +27,7 @@ const AnimationWrapper = (props: { animation: () => void; animationComplete: () 
 
     return (
         <Animatable.View ref={animationRef} useNativeDriver style={sharedStyles.clearWrapper}>
-            {props.children}
+            {showChildren && props.children}
         </Animatable.View>
     );
 };

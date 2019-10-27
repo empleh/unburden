@@ -15,7 +15,7 @@ export class Animations {
             },
             to: {
                 translateX: 0,
-                translateY: height * .6,
+                translateY: height * .55,
             },
         };
     };
@@ -36,7 +36,7 @@ export class Animations {
     static slideIn = () => {
         return {
             from: {
-                translateX: 100,
+                translateX: 1000,
                 translateY: 0,
             },
             to: {

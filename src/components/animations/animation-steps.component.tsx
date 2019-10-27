@@ -27,11 +27,11 @@ const AnimationSteps = (props: IAnimationProps & INavigationProps) => {
             case 2:
                 return <EnvelopeWrapper startAnimation={true} showEnvelope={true} animationComplete={() => setAnimationStep(3)} />;
             case 3:
-                return <AnimationContent startAnimation={true} animationComplete={props.animationComplete} />;
+                return <AnimationContent startAnimation={true} animationComplete={() => setAnimationStep(4)} />;
             case 4:
                 return (
-                    <AnimationWrapper animation={Animations.slideIn} animationComplete={props.animationComplete}>
-                        <MessageInput startAnimation={false} navigation={props.navigation} />
+                    <AnimationWrapper animation={Animations.slideIn} startAnimation={true} animationComplete={props.animationComplete}>
+                        <MessageInput startAnimation={false} blockKeyboard={true} navigation={props.navigation} />
                     </AnimationWrapper>
                 );
             default:
