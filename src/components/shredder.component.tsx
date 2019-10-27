@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { StyleVariables } from '../style_variables';
 
-const Separator = (props: { animating: boolean }) => {
+const Shredder = (props: { animating: boolean }) => {
     const onColor = { backgroundColor: props.animating ? '#00ff00' : 'green' };
     return (
         <View style={styles.shredder}>
@@ -66,4 +66,4 @@ const styles = StyleSheet.create({
     offLight: { width: 12, height: 12, backgroundColor: 'red', borderRadius: 12, marginBottom: 6 },
 });
 
-export default Separator;
+export default Shredder;

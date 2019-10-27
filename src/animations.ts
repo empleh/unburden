@@ -1,7 +1,7 @@
 import { StyleVariables } from './style_variables';
 
 export class Animations {
-    static animationStepTime: number = 3000;
+    static animationStepTime: number = 2500;
 
     static sleep = (time: number) => {
         return new Promise(resolve => setTimeout(resolve, time));

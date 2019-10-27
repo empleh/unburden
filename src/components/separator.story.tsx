@@ -4,7 +4,7 @@ import { storiesOf } from '@storybook/react';
 import { StyleSheet, Text, View } from "react-native";
 import { StyleVariables } from "../style_variables";
 import { StorybookContainer } from '../templates/StoryContainer';
-import Separator from './separator.component';
+import Shredder from './shredder.component';
 
 storiesOf('app', module)
     .addDecorator(StorybookContainer)
@@ -12,7 +12,7 @@ storiesOf('app', module)
         <View style={{ flex: 1 }}>
           <View style={styles.top} />
           <View style={styles.separator}>
-            <Separator animating={boolean('animating', false)} />
+            <Shredder animating={boolean('animating', false)} />
           </View>
           <View style={styles.bottom} />
         </View>

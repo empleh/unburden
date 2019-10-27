@@ -7,21 +7,20 @@ import ShredAnimation from './shred-animation.component';
 
 const AnimationContent = (props: IAnimationProps) => {
     const animationChoices = [
-        {
+        /*{
             component: Fireworks,
             props: {
                 startAnimation: true,
                 animationComplete: props.animationComplete,
             },
-        },
-        /*      {
+        },*/
+        {
             component: ShredAnimation,
             props: {
                 startAnimation: true,
-                width: 100,
                 animationComplete: props.animationComplete,
             },
-        },*/
+        },
     ];
 
     const randomAnimation = Math.floor(Math.random() * animationChoices.length);
