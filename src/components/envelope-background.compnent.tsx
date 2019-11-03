@@ -1,15 +1,13 @@
 import React, { useEffect, useRef } from 'react';
-import { Dimensions, ImageBackground, StyleSheet, View } from 'react-native';
+import { Dimensions, View } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { Animations } from '../animations';
 import Images from '../images';
 import sharedStyles from '../sharedStyles';
 import { IAnimationProps } from '../models/animation.props';
-import { StyleVariables } from '../style_variables';
-import Envelope from './envelope.compnent';
 import SpriteSheet from 'rn-sprite-sheet';
 
-const EnvelopeWrapper = (props: IAnimationProps & { showEnvelope: boolean }) => {
+const EnvelopeBackground = (props: IAnimationProps & { showEnvelope: boolean }) => {
     const spriteSheet = useRef();
     const window = Dimensions.get('window');
 
@@ -46,15 +44,13 @@ const EnvelopeWrapper = (props: IAnimationProps & { showEnvelope: boolean }) => 
                 props.animationComplete();
             },
         });
-
-        //props.animationComplete();
     };
 
     if (!props.showEnvelope) {
         return null;
     }
 
-    const front = {
+    const background = {
         ref: spriteSheet,
         source: Images.envelopeSheet,
         columns: 4,
@@ -63,29 +59,16 @@ const EnvelopeWrapper = (props: IAnimationProps & { showEnvelope: boolean }) => 
         viewStyle: [sharedStyles.layer],
         imageStyle: [sharedStyles.image],
         animations: {
-            go: [0, 1, 2],
-            receive: [0],
+            go: [4, 5, 2],
+            receive: [4],
         },
     };
 
     return (
-        <View style={[sharedStyles.staticEnvelope, { zIndex: 20 }]}>
-            <SpriteSheet {...front} />
-            <View style={styles.bottomCover} />
+        <View style={[sharedStyles.staticEnvelope, { zIndex: 1 }]}>
+            <SpriteSheet {...background} />
         </View>
     );
 };
 
-const styles = StyleSheet.create({
-    bottomCover: {
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        backgroundColor: 'white',
-        height: StyleVariables.space.large * 2 + StyleVariables.space.small * 2,
-        zIndex: -1,
-    },
-});
-
-export default EnvelopeWrapper;
+export default EnvelopeBackground;

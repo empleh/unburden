@@ -6,6 +6,7 @@ import Images from '../images';
 import { INavigationProps } from '../models/navigation-props';
 import sharedStyles from '../sharedStyles';
 import { StyleVariables } from '../style_variables';
+import EnvelopeBackground from './envelope-background.compnent';
 import EnvelopeWrapper from './envelope-wrapper.compnent';
 import { IAnimationProps } from '../models/animation.props';
 
@@ -13,6 +14,8 @@ const MessageInput = (props: { blockKeyboard?: boolean } & IAnimationProps & INa
     const window = Dimensions.get('window');
     const [message, setMessage] = useState('');
     const animationRef = useRef();
+    const foregroundRef = useRef();
+    const backgroundRef = useRef();
     const inputRef = useRef();
 
     const setFocus = () => {
@@ -47,7 +50,13 @@ const MessageInput = (props: { blockKeyboard?: boolean } & IAnimationProps & INa
 
     const runAnimation = async () => {
         // @ts-ignore
-        await animationRef.current.animate(Animations.flyOffPage(window.height), Animations.animationStepTime);
+        foregroundRef.current.animate(Animations.envelopeOntoScreen(window.height), Animations.animationStepTime);
+        // @ts-ignore
+        backgroundRef.current.animate(Animations.envelopeOntoScreen(window.height), Animations.animationStepTime);
+        // await envelopeRef.current.animate(Animations.envelopeOntoScreen(window.height), Animations.animationStepTime);
+        await Animations.sleep(Animations.animationStepTime);
+        // @ts-ignore
+        await animationRef.current.animate(Animations.noteIntoEnvelope(window.height), Animations.animationStepTime);
 
         props.animationComplete();
     };
@@ -69,10 +78,10 @@ const MessageInput = (props: { blockKeyboard?: boolean } & IAnimationProps & INa
 
     return (
         <View style={[sharedStyles.wrapper, sharedStyles.sidePadding]}>
-            <Animatable.View ref={animationRef} useNativeDriver style={[sharedStyles.wrapper]}>
+            <Animatable.View ref={animationRef} useNativeDriver style={[sharedStyles.wrapper, { zIndex: 10 }]}>
                 <ImageBackground
                     source={Images.paperBackground}
-                    style={[sharedStyles.paperBackground, sharedStyles.elevationLarge]}
+                    style={[sharedStyles.paperBackground, sharedStyles.elevationLarge, { zIndex: 10 }]}
                     resizeMode="stretch"
                 >
                     <View style={[styles.inputWrapper]}>
@@ -80,7 +89,12 @@ const MessageInput = (props: { blockKeyboard?: boolean } & IAnimationProps & INa
                     </View>
                 </ImageBackground>
             </Animatable.View>
-            <EnvelopeWrapper startAnimation={false} showEnvelope={props.startAnimation} />
+            <Animatable.View ref={backgroundRef} useNativeDriver style={[sharedStyles.staticEnvelope, { zIndex: 1 }]}>
+                <EnvelopeBackground startAnimation={false} showEnvelope={props.startAnimation} />
+            </Animatable.View>
+            <Animatable.View ref={foregroundRef} useNativeDriver style={[sharedStyles.staticEnvelope, { zIndex: 20 }]}>
+                <EnvelopeWrapper startAnimation={false} showEnvelope={props.startAnimation} />
+            </Animatable.View>
         </View>
     );
 };

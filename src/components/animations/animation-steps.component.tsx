@@ -3,6 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import { Animations } from '../../animations';
 import { INavigationProps } from '../../models/navigation-props';
 import { StyleVariables } from '../../style_variables';
+import EnvelopeBackground from '../envelope-background.compnent';
 import AnimationContent from './animation-content.component';
 import AnimationWrapper from './animation-wrapper.component';
 import EnvelopeWrapper from './../envelope-wrapper.compnent';
@@ -25,7 +26,12 @@ const AnimationSteps = (props: IAnimationProps & INavigationProps) => {
             case 1:
                 return <MessageInput startAnimation={true} animationComplete={() => setAnimationStep(2)} navigation={props.navigation} />;
             case 2:
-                return <EnvelopeWrapper startAnimation={true} showEnvelope={true} animationComplete={() => setAnimationStep(3)} />;
+                return (
+                    <>
+                        <EnvelopeWrapper startAnimation={true} showEnvelope={true} animationComplete={() => setAnimationStep(3)} />
+                        <EnvelopeBackground startAnimation={true} showEnvelope={true} animationComplete={() => {}} />
+                    </>
+                );
             case 3:
                 return <AnimationContent startAnimation={true} animationComplete={() => setAnimationStep(4)} />;
             case 4:
@@ -36,6 +42,7 @@ const AnimationSteps = (props: IAnimationProps & INavigationProps) => {
                 );
             default:
                 return <MessageInput startAnimation={false} navigation={props.navigation} />;
+            //return <EnvelopeWrapper startAnimation={false} showEnvelope={true} animationComplete={() => setAnimationStep(3)} />;
         }
     };
 

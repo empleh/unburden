@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, SafeAreaView, Keyboard } from 'react-native';
+import { View, StyleSheet, SafeAreaView, Keyboard, TextInput, ImageBackground } from 'react-native';
+import Images from '../images';
 import { INavigationProps } from '../models/navigation-props';
 import Constants from 'expo-constants';
+import sharedStyles from '../sharedStyles';
 import { StyleVariables } from '../style_variables';
 import Header from './header.component';
 import AnimationSteps from './animations/animation-steps.component';

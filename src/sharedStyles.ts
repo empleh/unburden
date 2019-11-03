@@ -33,6 +33,31 @@ const sharedStyles = StyleSheet.create({
     alignTextTop: { textAlignVertical: 'top' },
     sidePadding: { padding: StyleVariables.space.large },
     seeMe: { width: '100%', height: '100%', backgroundColor: 'red' },
+    envelope: {
+        width: '98%',
+        height: '98%',
+        backgroundColor: 'transparent',
+    },
+    layer: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        backgroundColor: 'transparent',
+        height: '100%',
+    },
+    image: {
+        backgroundColor: 'transparent',
+    },
+    staticEnvelope: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        backgroundColor: 'transparent',
+        height: '100%',
+        borderColor: 'white',
+    },
 });
 
 export default sharedStyles;

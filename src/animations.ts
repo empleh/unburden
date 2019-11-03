@@ -7,7 +7,20 @@ export class Animations {
         return new Promise(resolve => setTimeout(resolve, time));
     };
 
-    static flyOffPage = (height: number) => {
+    static envelopeOntoScreen = (height: number) => {
+        return {
+            from: {
+                translateX: 0,
+                translateY: height,
+            },
+            to: {
+                translateX: 0,
+                translateY: 0,
+            },
+        };
+    };
+
+    static noteIntoEnvelope = (height: number) => {
         return {
             from: {
                 translateX: 0,
@@ -15,7 +28,7 @@ export class Animations {
             },
             to: {
                 translateX: 0,
-                translateY: height * .55,
+                translateY: height * .65,
             },
         };
     };
