@@ -79,11 +79,11 @@ const EnvelopeWrapper = (props: IAnimationProps & { showEnvelope: boolean }) => 
 const styles = StyleSheet.create({
     bottomCover: {
         position: 'absolute',
-        bottom: 0,
+        bottom: -50,
         left: 0,
         right: 0,
         backgroundColor: 'white',
-        height: StyleVariables.space.large * 2 + StyleVariables.space.small * 2,
+        height: StyleVariables.space.large * 4 + StyleVariables.space.small * 2,
         zIndex: -1,
     },
 });

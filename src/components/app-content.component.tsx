@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, SafeAreaView, Keyboard, TextInput, ImageBackground } from 'react-native';
-import Images from '../images';
+import { View, StyleSheet, SafeAreaView, Keyboard } from 'react-native';
 import { INavigationProps } from '../models/navigation-props';
 import Constants from 'expo-constants';
-import sharedStyles from '../sharedStyles';
 import { StyleVariables } from '../style_variables';
 import Header from './header.component';
 import AnimationSteps from './animations/animation-steps.component';
@@ -14,6 +12,8 @@ const ApplicationContent = (props: INavigationProps) => {
     const footerHeight = Constants.platform.ios && Constants.statusBarHeight > 20 ? StyleVariables.space.large * 2 : 0;
 
     const [animating, setAnimating] = useState(false);
+    const [coverFooter, setCoverFooter] = useState(false);
+
     const startAnimation = () => {
         Keyboard.dismiss();
         setAnimating(true);
@@ -27,12 +27,17 @@ const ApplicationContent = (props: INavigationProps) => {
             <SafeAreaView style={{ flex: 1, backgroundColor: 'white', paddingTop }}>
                 <Header navigation={props.navigation} showWhy={true} />
 
-                <AnimationSteps navigation={props.navigation} startAnimation={animating} animationComplete={clearComplete} />
+                <AnimationSteps
+                    navigation={props.navigation}
+                    startAnimation={animating}
+                    animationComplete={clearComplete}
+                    coverFooter={setCoverFooter}
+                />
 
                 <ReleaseButton startAnimation={startAnimation} animationRunning={animating} />
             </SafeAreaView>
 
-            <View style={{ backgroundColor: 'white', height: footerHeight, width: '100%' }} />
+            <View style={{ backgroundColor: coverFooter ? 'white' : 'transparent', height: footerHeight, width: '100%' }} />
         </View>
     );
 };

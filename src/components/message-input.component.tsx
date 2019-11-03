@@ -10,7 +10,7 @@ import EnvelopeBackground from './envelope-background.compnent';
 import EnvelopeWrapper from './envelope-wrapper.compnent';
 import { IAnimationProps } from '../models/animation.props';
 
-const MessageInput = (props: { blockKeyboard?: boolean } & IAnimationProps & INavigationProps) => {
+const MessageInput = (props: { blockKeyboard?: boolean; coverFooter?: (cover: boolean) => void } & IAnimationProps & INavigationProps) => {
     const window = Dimensions.get('window');
     const [message, setMessage] = useState('');
     const animationRef = useRef();
@@ -55,6 +55,9 @@ const MessageInput = (props: { blockKeyboard?: boolean } & IAnimationProps & INa
         backgroundRef.current.animate(Animations.envelopeOntoScreen(window.height), Animations.animationStepTime);
         // await envelopeRef.current.animate(Animations.envelopeOntoScreen(window.height), Animations.animationStepTime);
         await Animations.sleep(Animations.animationStepTime);
+
+        props.coverFooter(true);
+
         // @ts-ignore
         await animationRef.current.animate(Animations.noteIntoEnvelope(window.height), Animations.animationStepTime);
 

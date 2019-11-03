@@ -3,7 +3,6 @@ import { Dimensions, ImageBackground, TextInput, View } from "react-native";
 import Images from "../images";
 import sharedStyles from '../sharedStyles';
 import { StyleVariables } from '../style_variables';
-import Svg, { Polygon } from 'react-native-svg';
 
 const Envelope = (props: { showClosed: boolean }) => {
     const window = Dimensions.get('window');

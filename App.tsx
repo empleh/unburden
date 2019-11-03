@@ -9,12 +9,7 @@ export default function App() {
     const [loaded, setLoaded] = useState(false);
     useEffect(() => {
         const loadAssets = async () => {
-            Object.keys(Images).forEach(async i => await Asset.fromModule(Images[i]).downloadAsync());
-
-
-/*            await Asset.fromModule(Images).downloadAsync();
-            await Asset.fromModule(require('./assets/paper.png')).downloadAsync();
-            await Asset.fromModule(require('./assets/img/FireWave-1.png')).downloadAsync();*/
+            await Object.keys(Images).forEach(async i => await Asset.fromModule(Images[i]).downloadAsync());
             await Font.loadAsync({
                 'title-font': require('./assets/fonts/Grestal.ttf'),
             });

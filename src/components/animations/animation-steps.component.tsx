@@ -10,7 +10,7 @@ import EnvelopeWrapper from './../envelope-wrapper.compnent';
 import MessageInput from './../message-input.component';
 import { IAnimationProps } from '../../models/animation.props';
 
-const AnimationSteps = (props: IAnimationProps & INavigationProps) => {
+const AnimationSteps = (props: IAnimationProps & INavigationProps & { coverFooter: (cover: boolean) => void }) => {
     const [animationStep, setAnimationStep] = useState(0);
 
     useEffect(() => {
@@ -24,8 +24,16 @@ const AnimationSteps = (props: IAnimationProps & INavigationProps) => {
     const renderAnimationSteps = () => {
         switch (animationStep) {
             case 1:
-                return <MessageInput startAnimation={true} animationComplete={() => setAnimationStep(2)} navigation={props.navigation} />;
+                return (
+                    <MessageInput
+                        coverFooter={props.coverFooter}
+                        startAnimation={true}
+                        animationComplete={() => setAnimationStep(2)}
+                        navigation={props.navigation}
+                    />
+                );
             case 2:
+                props.coverFooter(false);
                 return (
                     <>
                         <EnvelopeWrapper startAnimation={true} showEnvelope={true} animationComplete={() => setAnimationStep(3)} />
