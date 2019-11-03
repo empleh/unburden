@@ -50,7 +50,6 @@ const AnimationSteps = (props: IAnimationProps & INavigationProps & { coverFoote
                 );
             default:
                 return <MessageInput startAnimation={false} navigation={props.navigation} />;
-            //return <EnvelopeWrapper startAnimation={false} showEnvelope={true} animationComplete={() => setAnimationStep(3)} />;
         }
     };
 

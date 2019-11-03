@@ -1,3 +1,4 @@
+import Constants from "expo-constants";
 import { StyleVariables } from './style_variables';
 
 export class Animations {
@@ -11,7 +12,7 @@ export class Animations {
         return {
             from: {
                 translateX: 0,
-                translateY: height,
+                translateY: height / 2,
             },
             to: {
                 translateX: 0,
@@ -28,7 +29,7 @@ export class Animations {
             },
             to: {
                 translateX: 0,
-                translateY: height * .65,
+                translateY: height * 0.65,
             },
         };
     };
@@ -77,17 +78,46 @@ export class Animations {
         };
     };
 
-    static raiseEnvelope(height: number) {
-        const translateYEnd = -1 * (height - StyleVariables.space.large) * .52;
+    static shredderOntoScreen(height: number) {
+        const footerHeight = Constants.platform.ios && Constants.statusBarHeight > 20 ? 50 : 80;
 
         return {
             from: {
                 translateX: 0,
-                translateY: 0,
+                translateY: height / 2 + footerHeight,
             },
             to: {
                 translateX: 0,
-                translateY: translateYEnd,
+                translateY: 0,
+            },
+        };
+    }
+
+    static rotateEnvelope(height: number, width: number) {
+        const xOffset = Constants.platform.ios && Constants.statusBarHeight > 20 ? 160 : 60;
+        const yOffset = 24;
+
+        return {
+            0: {
+                rotate: '0deg',
+                translateY: 0,
+                translateX: 0,
+                scaleY: 1,
+                scaleX: 1,
+            },
+            0.8: {
+                rotate: '-90deg',
+                translateY: -1 * (width / 2),
+                translateX: -1 * (width / 3),
+                scaleY: 1,
+                scaleX: 1,
+            },
+            1: {
+                rotate: '-90deg',
+                translateY: -1 * (width / 2) + yOffset,
+                translateX: -1 * (width / 3) - xOffset,
+                scaleY: 0.85,
+                scaleX: 0.9,
             },
         };
     }

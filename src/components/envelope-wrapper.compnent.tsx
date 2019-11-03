@@ -1,12 +1,9 @@
 import React, { useEffect, useRef } from 'react';
-import { Dimensions, ImageBackground, StyleSheet, View } from 'react-native';
-import * as Animatable from 'react-native-animatable';
-import { Animations } from '../animations';
+import { Dimensions, StyleSheet, View } from 'react-native';
 import Images from '../images';
 import sharedStyles from '../sharedStyles';
 import { IAnimationProps } from '../models/animation.props';
 import { StyleVariables } from '../style_variables';
-import Envelope from './envelope.compnent';
 import SpriteSheet from 'rn-sprite-sheet';
 
 const EnvelopeWrapper = (props: IAnimationProps & { showEnvelope: boolean }) => {
@@ -46,8 +43,6 @@ const EnvelopeWrapper = (props: IAnimationProps & { showEnvelope: boolean }) => 
                 props.animationComplete();
             },
         });
-
-        //props.animationComplete();
     };
 
     if (!props.showEnvelope) {

@@ -1,23 +1,12 @@
 import React from 'react';
-import { Dimensions, ImageBackground, TextInput, View } from "react-native";
-import Images from "../images";
+import { ImageBackground, View } from 'react-native';
+import Images from '../images';
 import sharedStyles from '../sharedStyles';
-import { StyleVariables } from '../style_variables';
 
-const Envelope = (props: { showClosed: boolean }) => {
-    const window = Dimensions.get('window');
-    const envelopeWidth = window.width - (StyleVariables.space.standard * 2 + (StyleVariables.space.large + StyleVariables.space.small));
-    const containerHeight = window.height * 0.36;
-    const envelopeHeight = containerHeight - StyleVariables.space.large * 3;
-
+const Envelope = () => {
     return (
-        <View style={[sharedStyles.clearWrapper]}>
-            <ImageBackground
-              source={Images.closedEnvelope}
-              style={[sharedStyles.envelope, sharedStyles.elevationLarge]}
-              resizeMode="stretch"
-            >
-            </ImageBackground>
+        <View style={[sharedStyles.staticEnvelope, { zIndex: 20 }]}>
+            <ImageBackground source={Images.closedEnvelope} style={[sharedStyles.envelope]} resizeMode="stretch" />
         </View>
     );
 };

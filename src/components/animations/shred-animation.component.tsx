@@ -1,19 +1,21 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Dimensions, StyleSheet, View } from 'react-native';
+import { Dimensions, View } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { Animations } from '../../animations';
+import Images from '../../images';
 import { IAnimationProps } from '../../models/animation.props';
 import sharedStyles from '../../sharedStyles';
 import Envelope from '../envelope.compnent';
-import Shredder from '../shredder.component';
-import AnimationWrapper from './animation-wrapper.component';
+import SpriteSheet from 'rn-sprite-sheet';
 
 const ShredAnimation = (props: IAnimationProps) => {
     const window = Dimensions.get('window');
-    const animationRef = useRef();
+    const shredderRef = useRef();
+    const envelopeRef = useRef();
+    const spriteSheet = useRef();
 
-    const [firstGo, setFirstGo] = useState(false);
-    const [secondGo, setSecondGo] = useState(false);
+    const [animateRotateEnvelope, setAnimateRotateEnvelope] = useState(false);
+    const [animateShredderShow, setAnimateShredderShow] = useState(false);
 
     useEffect(() => {
         if (props.startAnimation) {
@@ -21,63 +23,92 @@ const ShredAnimation = (props: IAnimationProps) => {
         }
     }, [props.startAnimation]);
 
-    const runAnimation = async () => {
-        setFirstGo(true);
+    useEffect(() => {
+        if (animateRotateEnvelope) {
+            rotateEnvelope();
+        }
+    }, [animateRotateEnvelope]);
 
-        // @ts-ignore
-        //await animationRef.current.fadeOut(Animations.animationStepTime);
+    useEffect(() => {
+        if (animateShredderShow) {
+            showShredder();
+        }
+    }, [animateShredderShow]);
+
+    const runAnimation = async () => {
+        setAnimateRotateEnvelope(true);
     };
 
-    const animateDown = async () => {
+    const rotateEnvelope = async () => {
         // @ts-ignore
-        await animationRef.current.animate(Animations.drop(window.height), Animations.animationStepTime);
+        await envelopeRef.current.animate(Animations.rotateEnvelope(window.height, window.width), Animations.animationStepTime / 2);
 
-        props.animationComplete();
+        setAnimateRotateEnvelope(false);
+        setAnimateShredderShow(true);
+    };
+
+    const showShredder = async () => {
+        // @ts-ignore
+        shredderRef.current.animate(Animations.shredderOntoScreen(window.height, window.width), Animations.animationStepTime / 2);
+
+        // @ts-ignore
+        spriteSheet.current.play({
+            type: 'receive',
+            fps: 100,
+            resetAfterFinish: false,
+            loop: false,
+            onFinish: () => {},
+        });
+
+        await Animations.sleep(Animations.animationStepTime / 2);
+
+        await shredIt();
+    };
+
+    const shredIt = async () => {
+        // @ts-ignore
+        await spriteSheet.current.play({
+            type: 'go',
+            fps: 3,
+            resetAfterFinish: false,
+            loop: false,
+            onFinish: async () => {
+                // @ts-ignore
+                await shredderRef.current.fadeOut(Animations.animationStepTime / 2);
+
+                props.animationComplete();
+            },
+        });
+    };
+
+    const shredSprite = {
+        ref: spriteSheet,
+        source: Images.envelopeSheet,
+        columns: 4,
+        rows: 3,
+        width: window.width,
+        viewStyle: [sharedStyles.layer],
+        imageStyle: [sharedStyles.image],
+        animations: {
+            go: [8, 9, 10, 11],
+            receive: [8],
+        },
     };
 
     return (
-        <>
-            <Animatable.View ref={animationRef} useNativeDriver style={[styles.fade, sharedStyles.sidePadding]}>
-                <Envelope showClosed={true} />
-            </Animatable.View>
-
-            <View style={styles.positioning}>
-                {firstGo && (
-                    <View style={styles.shredder}>
-                        <AnimationWrapper animation={Animations.slideIn} startAnimation={firstGo} animationComplete={animateDown}>
-                            <Shredder animating={false} />
-                        </AnimationWrapper>
-                    </View>
-                )}
-            </View>
-        </>
+        <View style={[sharedStyles.staticEnvelope]}>
+            {animateRotateEnvelope && (
+                <Animatable.View ref={envelopeRef} useNativeDriver style={[sharedStyles.staticEnvelope]}>
+                    <Envelope />
+                </Animatable.View>
+            )}
+            {animateShredderShow && (
+                <Animatable.View ref={shredderRef} useNativeDriver style={[sharedStyles.staticEnvelope]}>
+                    <SpriteSheet {...shredSprite} />
+                </Animatable.View>
+            )}
+        </View>
     );
 };
-
-const styles = StyleSheet.create({
-    positioning: {
-        position: 'absolute',
-        backgroundColor: 'transparent',
-        height: '100%',
-        top: 0,
-        left: 0,
-        right: 0,
-    },
-    fade: {
-        position: 'absolute',
-        backgroundColor: 'transparent',
-        height: '100%',
-        top: 0,
-        left: 0,
-        right: 0,
-    },
-    shredder: {
-        position: 'absolute',
-        height: '100%',
-        top: '50%',
-        right: 0,
-        width: '100%',
-    },
-});
 
 export default ShredAnimation;
