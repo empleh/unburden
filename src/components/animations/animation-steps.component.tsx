@@ -3,10 +3,8 @@ import { View, StyleSheet } from 'react-native';
 import { Animations } from '../../animations';
 import { INavigationProps } from '../../models/navigation-props';
 import { StyleVariables } from '../../style_variables';
-import EnvelopeBackground from '../envelope-background.compnent';
 import AnimationContent from './animation-content.component';
 import AnimationWrapper from './animation-wrapper.component';
-import EnvelopeWrapper from './../envelope-wrapper.compnent';
 import MessageInput from './../message-input.component';
 import { IAnimationProps } from '../../models/animation.props';
 
@@ -28,19 +26,12 @@ const AnimationSteps = (props: IAnimationProps & INavigationProps & { coverFoote
                     <MessageInput
                         coverFooter={props.coverFooter}
                         startAnimation={true}
-                        animationComplete={() => setAnimationStep(2)}
+                        animationComplete={() => setAnimationStep(3)}
                         navigation={props.navigation}
                     />
                 );
-            case 2:
-                props.coverFooter(false);
-                return (
-                    <>
-                        <EnvelopeWrapper startAnimation={true} showEnvelope={true} animationComplete={() => setAnimationStep(3)} />
-                        <EnvelopeBackground startAnimation={true} showEnvelope={true} animationComplete={() => {}} />
-                    </>
-                );
             case 3:
+                props.coverFooter(false);
                 return <AnimationContent startAnimation={true} animationComplete={() => setAnimationStep(4)} />;
             case 4:
                 return (
@@ -49,7 +40,7 @@ const AnimationSteps = (props: IAnimationProps & INavigationProps & { coverFoote
                     </AnimationWrapper>
                 );
             default:
-                return <MessageInput startAnimation={false} navigation={props.navigation} />;
+                return <MessageInput startAnimation={false} navigation={props.navigation} blockKeyboard={false} />;
         }
     };
 

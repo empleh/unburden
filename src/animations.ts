@@ -29,7 +29,7 @@ export class Animations {
             },
             to: {
                 translateX: 0,
-                translateY: height * 0.65,
+                translateY: height * 0.58,
             },
         };
     };

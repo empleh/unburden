@@ -13,6 +13,7 @@ import { IAnimationProps } from '../models/animation.props';
 const MessageInput = (props: { blockKeyboard?: boolean; coverFooter?: (cover: boolean) => void } & IAnimationProps & INavigationProps) => {
     const window = Dimensions.get('window');
     const [message, setMessage] = useState('');
+    const [animateEnvelope, setAnimateEnvelope] = useState(false);
     const animationRef = useRef();
     const foregroundRef = useRef();
     const backgroundRef = useRef();
@@ -53,7 +54,7 @@ const MessageInput = (props: { blockKeyboard?: boolean; coverFooter?: (cover: bo
         foregroundRef.current.animate(Animations.envelopeOntoScreen(window.height), Animations.animationStepTime);
         // @ts-ignore
         backgroundRef.current.animate(Animations.envelopeOntoScreen(window.height), Animations.animationStepTime);
-        // await envelopeRef.current.animate(Animations.envelopeOntoScreen(window.height), Animations.animationStepTime);
+
         await Animations.sleep(Animations.animationStepTime);
 
         props.coverFooter(true);
@@ -61,7 +62,7 @@ const MessageInput = (props: { blockKeyboard?: boolean; coverFooter?: (cover: bo
         // @ts-ignore
         await animationRef.current.animate(Animations.noteIntoEnvelope(window.height), Animations.animationStepTime);
 
-        props.animationComplete();
+        setAnimateEnvelope(true);
     };
 
     const callToAction = 'type out your feelings';
@@ -93,10 +94,14 @@ const MessageInput = (props: { blockKeyboard?: boolean; coverFooter?: (cover: bo
                 </ImageBackground>
             </Animatable.View>
             <Animatable.View ref={backgroundRef} useNativeDriver style={[sharedStyles.staticEnvelope, { zIndex: 1 }]}>
-                <EnvelopeBackground startAnimation={false} showEnvelope={props.startAnimation} />
+                <EnvelopeBackground
+                    startAnimation={animateEnvelope}
+                    showEnvelope={props.startAnimation}
+                    animationComplete={props.animationComplete}
+                />
             </Animatable.View>
             <Animatable.View ref={foregroundRef} useNativeDriver style={[sharedStyles.staticEnvelope, { zIndex: 20 }]}>
-                <EnvelopeWrapper startAnimation={false} showEnvelope={props.startAnimation} />
+                <EnvelopeWrapper startAnimation={animateEnvelope} showEnvelope={props.startAnimation} animationComplete={() => {}} />
             </Animatable.View>
         </View>
     );
