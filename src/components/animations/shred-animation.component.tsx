@@ -7,6 +7,7 @@ import { IAnimationProps } from '../../models/animation.props';
 import sharedStyles from '../../sharedStyles';
 import Envelope from '../envelope.compnent';
 import SpriteSheet from 'rn-sprite-sheet';
+import { SpriteSheets } from './sprite-sheets';
 
 const ShredAnimation = (props: IAnimationProps) => {
     const window = Dimensions.get('window');
@@ -82,16 +83,12 @@ const ShredAnimation = (props: IAnimationProps) => {
     };
 
     const shredSprite = {
+        ...SpriteSheets.shredder,
         ref: spriteSheet,
-        source: Images.envelopeSheet,
-        columns: 4,
-        rows: 3,
         width: window.width,
-        viewStyle: [sharedStyles.layer],
-        imageStyle: [sharedStyles.image],
         animations: {
-            go: [8, 9, 10, 11],
-            receive: [8],
+            go: [11, 12, 13, 14],
+            receive: [11],
         },
     };
 

@@ -1,11 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import { Dimensions, View } from 'react-native';
-import * as Animatable from 'react-native-animatable';
-import { Animations } from '../animations';
 import Images from '../images';
 import sharedStyles from '../sharedStyles';
 import { IAnimationProps } from '../models/animation.props';
 import SpriteSheet from 'rn-sprite-sheet';
+import { SpriteSheets } from './animations/sprite-sheets';
 
 const EnvelopeBackground = (props: IAnimationProps & { showEnvelope: boolean }) => {
     const spriteSheet = useRef();
@@ -51,16 +50,12 @@ const EnvelopeBackground = (props: IAnimationProps & { showEnvelope: boolean }) 
     }
 
     const background = {
+        ...SpriteSheets.envelope,
         ref: spriteSheet,
-        source: Images.envelopeSheet,
-        columns: 4,
-        rows: 3,
         width: window.width,
-        viewStyle: [sharedStyles.layer],
-        imageStyle: [sharedStyles.image],
         animations: {
-            go: [4, 5, 2],
-            receive: [4],
+            go: [6, 7, 3],
+            receive: [6],
         },
     };
 

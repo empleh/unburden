@@ -5,6 +5,7 @@ import sharedStyles from '../sharedStyles';
 import { IAnimationProps } from '../models/animation.props';
 import { StyleVariables } from '../style_variables';
 import SpriteSheet from 'rn-sprite-sheet';
+import { SpriteSheets } from './animations/sprite-sheets';
 
 const EnvelopeWrapper = (props: IAnimationProps & { showEnvelope: boolean }) => {
     const spriteSheet = useRef();
@@ -50,16 +51,12 @@ const EnvelopeWrapper = (props: IAnimationProps & { showEnvelope: boolean }) => 
     }
 
     const front = {
+        ...SpriteSheets.envelope,
         ref: spriteSheet,
-        source: Images.envelopeSheet,
-        columns: 4,
-        rows: 3,
         width: window.width,
-        viewStyle: [sharedStyles.layer],
-        imageStyle: [sharedStyles.image],
         animations: {
-            go: [0, 1, 2],
-            receive: [0],
+            go: [1, 2, 3],
+            receive: [1],
         },
     };
 
