@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     },
     buttonPosition: {
         width: 200,
-        height: 50,
+        height: 60,
     },
     floatingButton: {
         backgroundColor: '#669277',
