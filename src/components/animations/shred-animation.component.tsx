@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Dimensions, View } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { Animations } from '../../animations';
-import Images from '../../images';
 import { IAnimationProps } from '../../models/animation.props';
 import sharedStyles from '../../sharedStyles';
 import Envelope from '../envelope.compnent';

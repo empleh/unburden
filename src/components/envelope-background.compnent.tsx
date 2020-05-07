@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import { Dimensions, View } from 'react-native';
-import Images from '../images';
 import sharedStyles from '../sharedStyles';
 import { IAnimationProps } from '../models/animation.props';
 import SpriteSheet from 'rn-sprite-sheet';
