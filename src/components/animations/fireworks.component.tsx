@@ -29,7 +29,7 @@ const Fireworks = (props: IAnimationProps) => {
     return (
         <>
             <Animatable.View ref={animationRef} useNativeDriver style={[styles.fade, sharedStyles.sidePadding]}>
-                <Envelope showClosed={true} />
+                <Envelope />
             </Animatable.View>
 
             <View style={styles.positioning}>
