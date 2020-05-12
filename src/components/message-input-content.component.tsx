@@ -1,11 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ImageBackground, StyleSheet, TextInput, View, Text } from 'react-native';
 import Images from '../images';
+import { INavigationProps } from "../models/navigation-props";
 import sharedStyles from '../sharedStyles';
 import { StyleVariables } from '../style_variables';
-import { IMessageInterfaceProps } from './message-input.component';
 
-const MessageInputContent = ({ blockKeyboard, navigation }: Partial<IMessageInterfaceProps>) => {
+export interface IMessageInputContentProps extends INavigationProps {
+    placeholder: string;
+    prompt: string;
+    blockKeyboard?: boolean;
+}
+
+const MessageInputContent = ({ placeholder, prompt, blockKeyboard, navigation }: IMessageInputContentProps) => {
     const [message, setMessage] = useState('');
     const inputRef = useRef();
 
@@ -33,17 +39,12 @@ const MessageInputContent = ({ blockKeyboard, navigation }: Partial<IMessageInte
         };
     }, []);
 
-    const callToAction = 'type out your feelings';
-    const upset = 'upset?';
-    const frustrated = 'stressed?';
-    const release = 'release the negativity';
-
     const inputProps = {
         style: [styles.input, sharedStyles.alignTextTop],
         onChangeText: setMessage,
         value: message,
         multiline: true,
-        placeholder: `${upset}    ${frustrated}\n\n${callToAction}\n\n${release}`,
+        placeholder: placeholder,
         autoFocus: !blockKeyboard,
         ref: inputRef,
     };
@@ -55,7 +56,7 @@ const MessageInputContent = ({ blockKeyboard, navigation }: Partial<IMessageInte
             resizeMode="stretch"
         >
             <View style={[styles.inputWrapper]}>
-                <Text style={[styles.inputPrompt]}>I will let go of</Text>
+                <Text style={[styles.inputPrompt]}>{prompt}</Text>
                 <TextInput {...inputProps} />
             </View>
         </ImageBackground>

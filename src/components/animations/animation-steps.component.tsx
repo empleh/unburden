@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Animations } from '../../animations';
+import { MessageConstants } from '../../models/message-constants';
 import { INavigationProps } from '../../models/navigation-props';
 import { StyleVariables } from '../../style_variables';
 import AnimationContent from './animation-content.component';
@@ -28,6 +29,8 @@ const AnimationSteps = (props: IAnimationProps & INavigationProps & { coverFoote
                         startAnimation={true}
                         animationComplete={() => setAnimationStep(3)}
                         navigation={props.navigation}
+                        placeholder={MessageConstants.LetGoPlaceholder}
+                        prompt={MessageConstants.LetGoPrompt}
                     />
                 );
             case 3:
@@ -36,11 +39,25 @@ const AnimationSteps = (props: IAnimationProps & INavigationProps & { coverFoote
             case 4:
                 return (
                     <AnimationWrapper animation={Animations.slideIn} startAnimation={true} animationComplete={props.animationComplete}>
-                        <MessageInput startAnimation={false} blockKeyboard={true} navigation={props.navigation} />
+                        <MessageInput
+                            startAnimation={false}
+                            blockKeyboard={true}
+                            navigation={props.navigation}
+                            placeholder={MessageConstants.LetGoPlaceholder}
+                            prompt={MessageConstants.LetGoPrompt}
+                        />
                     </AnimationWrapper>
                 );
             default:
-                return <MessageInput startAnimation={false} navigation={props.navigation} blockKeyboard={false} />;
+                return (
+                    <MessageInput
+                        startAnimation={false}
+                        navigation={props.navigation}
+                        blockKeyboard={false}
+                        placeholder={MessageConstants.LetGoPlaceholder}
+                        prompt={MessageConstants.LetGoPrompt}
+                    />
+                );
         }
     };
 

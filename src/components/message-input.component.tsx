@@ -9,11 +9,14 @@ import EnvelopeWrapper from './envelope-wrapper.compnent';
 import { IAnimationProps } from '../models/animation.props';
 import MessageInputContent from './message-input-content.component';
 
-export interface IMessageInterfaceProps extends IAnimationProps, INavigationProps {
+export interface IMessageInputProps extends IAnimationProps, INavigationProps {
     blockKeyboard?: boolean;
+    placeholder: string;
+    prompt: string;
     coverFooter?: (cover: boolean) => void;
 }
-const MessageInput = ({ blockKeyboard, coverFooter, startAnimation, animationComplete, navigation }: IMessageInterfaceProps) => {
+
+const MessageInput = ({ placeholder, prompt, blockKeyboard, coverFooter, startAnimation, animationComplete, navigation }: IMessageInputProps) => {
     const window = Dimensions.get('window');
     const [animateEnvelope, setAnimateEnvelope] = useState(false);
     const animationRef = useRef();
@@ -45,7 +48,7 @@ const MessageInput = ({ blockKeyboard, coverFooter, startAnimation, animationCom
     return (
         <View style={[sharedStyles.wrapper, sharedStyles.sidePadding]}>
             <Animatable.View ref={animationRef} useNativeDriver style={[sharedStyles.wrapper, { zIndex: 10 }]}>
-                <MessageInputContent blockKeyboard={blockKeyboard} navigation={navigation} />
+                <MessageInputContent blockKeyboard={blockKeyboard} navigation={navigation} placeholder={placeholder} prompt={prompt} />
             </Animatable.View>
             <Animatable.View ref={backgroundRef} useNativeDriver style={[sharedStyles.staticEnvelope, { zIndex: 1 }]}>
                 <EnvelopeBackground startAnimation={animateEnvelope} showEnvelope={startAnimation} animationComplete={animationComplete} />
