@@ -4,4 +4,10 @@ export class StyleVariables {
         large: 24,
         small: 6,
     };
+    static colors = {
+        label: '#555',
+    };
+    static text = {
+        inputSize: 16,
+    };
 }

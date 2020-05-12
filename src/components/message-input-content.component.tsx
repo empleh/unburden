@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ImageBackground, StyleSheet, TextInput, View } from 'react-native';
+import { ImageBackground, StyleSheet, TextInput, View, Text } from 'react-native';
 import Images from '../images';
 import sharedStyles from '../sharedStyles';
 import { StyleVariables } from '../style_variables';
@@ -55,6 +55,7 @@ const MessageInputContent = ({ blockKeyboard, navigation }: Partial<IMessageInte
             resizeMode="stretch"
         >
             <View style={[styles.inputWrapper]}>
+                <Text style={[styles.inputPrompt]}>I will let go of</Text>
                 <TextInput {...inputProps} />
             </View>
         </ImageBackground>
@@ -73,7 +74,12 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent',
         height: '100%',
         width: '100%',
-        fontSize: 16,
+        fontSize: StyleVariables.text.inputSize,
+    },
+    inputPrompt: {
+        color: StyleVariables.colors.label,
+        paddingBottom: StyleVariables.space.small,
+        fontSize: StyleVariables.text.inputSize,
     },
 });
 
