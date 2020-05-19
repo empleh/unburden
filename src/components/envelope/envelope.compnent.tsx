@@ -1,7 +1,7 @@
 import React from 'react';
 import { ImageBackground, View } from 'react-native';
-import Images from '../images';
-import sharedStyles from '../sharedStyles';
+import Images from '../../images';
+import sharedStyles from '../../sharedStyles';
 
 const Envelope = () => {
     return (

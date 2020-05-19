@@ -4,15 +4,21 @@ import { Animations } from '../../animations';
 import { IAnimationProps } from '../../models/animation.props';
 import sharedStyles from '../../sharedStyles';
 
-const AnimationWrapper = (props: { animation: () => void; children?: {} } & IAnimationProps) => {
+export interface IAnimationWrapperProps extends IAnimationProps {
+    alwaysShowChildren?: boolean;
+    animation: () => void;
+    children?: {};
+}
+
+const AnimationWrapper = ({ animation, alwaysShowChildren, startAnimation, animationComplete, children }: IAnimationWrapperProps) => {
     const animationRef = useRef();
     const [showChildren, setShowChildren] = useState(false);
 
     useEffect(() => {
-        if (props.startAnimation) {
+        if (startAnimation) {
             runAnimation();
         }
-    }, [props.startAnimation]);
+    }, [startAnimation]);
 
     const runAnimation = async () => {
         setTimeout(() => {
@@ -20,14 +26,14 @@ const AnimationWrapper = (props: { animation: () => void; children?: {} } & IAni
         }, 100);
 
         // @ts-ignore
-        await animationRef.current.animate(props.animation(), Animations.animationStepTime);
+        await animationRef.current.animate(animation(), Animations.animationStepTime);
 
-        props.animationComplete();
+        animationComplete();
     };
 
     return (
         <Animatable.View ref={animationRef} useNativeDriver style={sharedStyles.clearWrapper}>
-            {showChildren && props.children}
+            {showChildren || alwaysShowChildren && children}
         </Animatable.View>
     );
 };

@@ -2,7 +2,7 @@
     "compilerOptions": {
         "target": "es5",
         "module": "esnext",
-        "lib": ["es2015", "esnext.asynciterable"],
+        "lib": ["es2017", "esnext.asynciterable"],
         "allowSyntheticDefaultImports": true,
         "jsx": "preserve",
         "moduleResolution": "node",

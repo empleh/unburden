@@ -1,13 +1,31 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import { Animations } from '../../animations';
 import { MessageConstants } from '../../models/message-constants';
 import { INavigationProps } from '../../models/navigation-props';
 import { StyleVariables } from '../../style_variables';
 import AnimationContent from './animation-content.component';
-import AnimationWrapper from './animation-wrapper.component';
-import MessageInput from './../message-input.component';
+import AnimationWrapper, { IAnimationWrapperProps } from './animation-wrapper.component';
+import MessageInput, { IMessageInputProps } from './../message-input.component';
 import { IAnimationProps } from '../../models/animation.props';
+
+const runAnimationSteps: Array<number> = [1];
+
+const buildAnimationWrapper = (step: number): IAnimationWrapperProps => {
+    return {
+        animation: () => {},
+        startAnimation: runAnimationSteps.includes(step),
+        alwaysShowChildren: step !== 3,
+    };
+};
+
+const buildInputProps = (step: number): IMessageInputProps => {
+    return {
+        placeholder: MessageConstants.LetGoPlaceholder,
+        prompt: MessageConstants.LetGoPrompt,
+        startAnimation: runAnimationSteps.includes(step),
+    };
+};
 
 const AnimationSteps = (props: IAnimationProps & INavigationProps & { coverFooter: (cover: boolean) => void }) => {
     const [animationStep, setAnimationStep] = useState(0);
@@ -50,20 +68,33 @@ const AnimationSteps = (props: IAnimationProps & INavigationProps & { coverFoote
                 );
             default:
                 return (
-                    <MessageInput
-                        startAnimation={false}
-                        navigation={props.navigation}
-                        blockKeyboard={false}
-                        placeholder={MessageConstants.LetGoPlaceholder}
-                        prompt={MessageConstants.LetGoPrompt}
-                    />
+                    <AnimationWrapper animation={() => {}} startAnimation={false} alwaysShowChildren={true}>
+                        <MessageInput
+                            startAnimation={false}
+                            navigation={props.navigation}
+                            blockKeyboard={false}
+                            placeholder={MessageConstants.LetGoPlaceholder}
+                            prompt={MessageConstants.LetGoPrompt}
+                        />
+                    </AnimationWrapper>
                 );
         }
     };
 
+    const wrapperProps: IAnimationWrapperProps = buildAnimationWrapper(animationStep);
+    const inputProps: IMessageInputProps = buildInputProps(animationStep);
+
+    console.log(wrapperProps);
+    console.log(inputProps);
+
     return (
         <View style={[styles.top]}>
-            <View style={styles.wrapper}>{renderAnimationSteps()}</View>
+            <View style={styles.wrapper}>
+                <Text>{JSON.stringify(wrapperProps)}</Text>
+                <AnimationWrapper {...wrapperProps}>
+                    <MessageInput {...inputProps} navigation={props.navigation} />
+                </AnimationWrapper>
+            </View>
         </View>
     );
 };

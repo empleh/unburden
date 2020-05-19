@@ -4,8 +4,8 @@ import * as Animatable from 'react-native-animatable';
 import { Animations } from '../animations';
 import { INavigationProps } from '../models/navigation-props';
 import sharedStyles from '../sharedStyles';
-import EnvelopeBackground from './envelope-background.compnent';
-import EnvelopeWrapper from './envelope-wrapper.compnent';
+import EnvelopeBackground from './envelope/envelope-background.compnent';
+import EnvelopeWrapper from './envelope/envelope-wrapper.compnent';
 import { IAnimationProps } from '../models/animation.props';
 import MessageInputContent from './message-input-content.component';
 

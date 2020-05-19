@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native';
-import sharedStyles from '../sharedStyles';
-import { IAnimationProps } from '../models/animation.props';
-import { StyleVariables } from '../style_variables';
+import sharedStyles from '../../sharedStyles';
+import { IAnimationProps } from '../../models/animation.props';
+import { StyleVariables } from '../../style_variables';
 import SpriteSheet from 'rn-sprite-sheet';
-import { SpriteSheets } from './animations/sprite-sheets';
+import { SpriteSheets } from '../animations/sprite-sheets';
 
 const EnvelopeWrapper = (props: IAnimationProps & { showEnvelope: boolean }) => {
     const spriteSheet = useRef();

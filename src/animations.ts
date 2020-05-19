@@ -2,7 +2,7 @@ import Constants from "expo-constants";
 import { StyleVariables } from './style_variables';
 
 export class Animations {
-    static animationStepTime: number = 1500;
+    static animationStepTime: number = 2000;
 
     static sleep = (time: number) => {
         return new Promise(resolve => setTimeout(resolve, time));

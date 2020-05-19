@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import { Dimensions, View } from 'react-native';
-import sharedStyles from '../sharedStyles';
-import { IAnimationProps } from '../models/animation.props';
+import sharedStyles from '../../sharedStyles';
+import { IAnimationProps } from '../../models/animation.props';
 import SpriteSheet from 'rn-sprite-sheet';
-import { SpriteSheets } from './animations/sprite-sheets';
+import { SpriteSheets } from '../animations/sprite-sheets';
 
 const EnvelopeBackground = (props: IAnimationProps & { showEnvelope: boolean }) => {
     const spriteSheet = useRef();

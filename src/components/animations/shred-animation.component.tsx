@@ -4,7 +4,7 @@ import * as Animatable from 'react-native-animatable';
 import { Animations } from '../../animations';
 import { IAnimationProps } from '../../models/animation.props';
 import sharedStyles from '../../sharedStyles';
-import Envelope from '../envelope.compnent';
+import Envelope from '../envelope/envelope.compnent';
 import SpriteSheet from 'rn-sprite-sheet';
 import { SpriteSheets } from './sprite-sheets';
 
