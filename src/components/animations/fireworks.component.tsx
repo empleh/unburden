@@ -4,7 +4,7 @@ import * as Animatable from 'react-native-animatable';
 import { Animations } from '../../animations';
 import { IAnimationProps } from '../../models/animation.props';
 import sharedStyles from '../../sharedStyles';
-import Envelope from '../envelope.compnent';
+import Envelope from '../envelope/envelope.compnent';
 import FireWave from './fire-wave.component';
 
 const Fireworks = (props: IAnimationProps) => {

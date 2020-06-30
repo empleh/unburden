@@ -8,7 +8,7 @@ import Shredder from './shredder.component';
 
 storiesOf('app', module)
     .addDecorator(StorybookContainer)
-    .add('App', () => (
+    .add('Separator', () => (
         <View style={{ flex: 1 }}>
           <View style={styles.top} />
           <View style={styles.separator}>
