@@ -90,7 +90,6 @@ const AnimationSteps = (props: IAnimationProps & INavigationProps & { coverFoote
     return (
         <View style={[styles.top]}>
             <View style={styles.wrapper}>
-                <Text>{JSON.stringify(wrapperProps)}</Text>
                 <AnimationWrapper {...wrapperProps}>
                     <MessageInput {...inputProps} navigation={props.navigation} />
                 </AnimationWrapper>

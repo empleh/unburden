@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { View, StyleSheet, SafeAreaView, Keyboard } from 'react-native';
 import { INavigationProps } from '../models/navigation-props';
 import Constants from 'expo-constants';
 import { StyleVariables } from '../style_variables';
+import FlipButton from './buttons/flip-button.component';
 import Header from './header.component';
 import AnimationSteps from './animations/animation-steps.component';
 import ReleaseButton from './buttons/release-button.component';
@@ -14,13 +15,18 @@ const ApplicationContent = (props: INavigationProps) => {
     const [animating, setAnimating] = useState(false);
     const [coverFooter, setCoverFooter] = useState(false);
 
-    const startAnimation = () => {
+    const startAnimation = useCallback(() => {
         Keyboard.dismiss();
         setAnimating(true);
-    };
-    const clearComplete = () => {
+    }, []);
+
+    const clearComplete = useCallback(() => {
         setAnimating(false);
-    };
+    }, []);
+
+    const flipMode = useCallback(() => {
+        console.log('flip mode');
+    }, []);
 
     return (
         <View style={styles.container}>
@@ -34,6 +40,7 @@ const ApplicationContent = (props: INavigationProps) => {
                     coverFooter={setCoverFooter}
                 />
 
+                <FlipButton flipMode={flipMode} animationRunning={animating} />
                 <ReleaseButton startAnimation={startAnimation} animationRunning={animating} />
             </SafeAreaView>
 
