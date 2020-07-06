@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import useKeyboardEvents from '../hooks/keyboard.hooks';
+import { StyleSheet, View, Text } from 'react-native';
+import useKeyboardEvents from '../../hooks/keyboard.hooks';
 import AppButton from './app-button.component';
 
 const ReleaseButton = (props: { startAnimation: () => void; animationRunning: boolean }) => {
@@ -10,12 +10,14 @@ const ReleaseButton = (props: { startAnimation: () => void; animationRunning: bo
         return null;
     }
 
-    const buttonTop = screenHeight + 20;
+    const buttonTop = screenHeight + 16;
 
     return (
         <View style={[styles.actions, { top: buttonTop }]}>
             <View style={styles.buttonPosition}>
-                <AppButton text="Let Go" onPress={props.startAnimation} style={styles.floatingButton} />
+                <AppButton onPress={props.startAnimation} style={styles.floatingButton}>
+                    <Text style={styles.buttonText}>Let Go</Text>
+                </AppButton>
             </View>
         </View>
     );
@@ -25,22 +27,21 @@ const styles = StyleSheet.create({
     actions: {
         backgroundColor: 'transparent',
         position: 'absolute',
-        right: 10,
+        right: 8,
     },
     buttonPosition: {
-        width: 200,
-        height: 60,
+        width: 128,
+        height: 64,
     },
     floatingButton: {
         backgroundColor: '#669277',
         justifyContent: 'center',
-        borderRadius: 30,
+        borderRadius: 32,
     },
     buttonText: {
         color: 'white',
         fontSize: 20,
         textAlign: 'center',
-        elevation: 24,
     },
 });
 

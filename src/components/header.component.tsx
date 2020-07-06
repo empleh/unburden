@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { INavigationProps } from '../models/navigation-props';
-import NavButton from './nav-button.component';
+import NavButton from './buttons/nav-button.component';
 
 export interface IHeaderProps extends INavigationProps {
     showBack?: boolean;

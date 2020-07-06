@@ -3,7 +3,7 @@ import React from 'react';
 import { View, StyleSheet, SafeAreaView, Text } from 'react-native';
 import { INavigationProps } from '../models/navigation-props';
 import Header from './header.component';
-import NavButton from './nav-button.component';
+import NavButton from './buttons/nav-button.component';
 
 const WhyContent = (props: INavigationProps) => {
     const url = 'https://journals.lww.com/psychosomaticmedicine/Abstract/2013/07000/Expressive_Writing_and_Wound_Healing_in_Older.10.aspx';
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     },
     message: {
         marginTop: 24,
-        padding: 24
+        padding: 24,
     },
     link: {
         alignItems: 'center',

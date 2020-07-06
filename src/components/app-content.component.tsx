@@ -5,7 +5,7 @@ import Constants from 'expo-constants';
 import { StyleVariables } from '../style_variables';
 import Header from './header.component';
 import AnimationSteps from './animations/animation-steps.component';
-import ReleaseButton from './release-button.component';
+import ReleaseButton from './buttons/release-button.component';
 
 const ApplicationContent = (props: INavigationProps) => {
     const paddingTop = Constants.statusBarHeight + 12;

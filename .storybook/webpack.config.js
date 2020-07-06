@@ -50,6 +50,8 @@ module.exports = ({ config, mode }) => {
             path.resolve(__dirname, '../node_modules/react-native-animatable'),
             path.resolve(__dirname, '../node_modules/react'),
             path.resolve(__dirname, '../node_modules/expo-constants'),
+            path.resolve(__dirname, '../node_modules/@expo/vector-icons'),
+            path.resolve(__dirname, '../node_modules/react-native-vector-icons'),
         ],
         use: [
             { loader: 'cache-loader' },

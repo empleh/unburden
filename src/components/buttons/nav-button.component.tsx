@@ -1,5 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+
 const NavButton = (props: { text: string; onPress: () => void; hide?: boolean; style?: any }): JSX.Element => {
     if (props.hide) {
         return null;
