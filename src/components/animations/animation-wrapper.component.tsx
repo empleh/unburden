@@ -1,24 +1,20 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { PropsWithChildren, useEffect, useRef, useState } from 'react';
 import * as Animatable from 'react-native-animatable';
 import { Animations } from '../../animations';
-import { IAnimationProps } from '../../models/animation.props';
+import { useAnimationFunctions, useAnimationState } from '../../contexts/animation.context';
 import sharedStyles from '../../sharedStyles';
 
-export interface IAnimationWrapperProps extends IAnimationProps {
-    alwaysShowChildren?: boolean;
-    animation: () => void;
-    children?: {};
-}
-
-const AnimationWrapper = ({ animation, alwaysShowChildren, startAnimation, animationComplete, children }: IAnimationWrapperProps) => {
+const AnimationWrapper = ({ children }: PropsWithChildren<{}>) => {
     const animationRef = useRef();
     const [showChildren, setShowChildren] = useState(false);
+    const { animationComplete, getCurrentAnimation } = useAnimationFunctions();
+    const { animateWrapper, alwaysShowChildren } = useAnimationState();
 
     useEffect(() => {
-        if (startAnimation) {
+        if (animateWrapper) {
             runAnimation();
         }
-    }, [startAnimation]);
+    }, [animateWrapper]);
 
     const runAnimation = async () => {
         setTimeout(() => {
@@ -26,14 +22,14 @@ const AnimationWrapper = ({ animation, alwaysShowChildren, startAnimation, anima
         }, 100);
 
         // @ts-ignore
-        await animationRef.current.animate(animation(), Animations.animationStepTime);
+        await animationRef.current.animate(getCurrentAnimation(), Animations.animationStepTime);
 
         animationComplete();
     };
 
     return (
         <Animatable.View ref={animationRef} useNativeDriver style={sharedStyles.clearWrapper}>
-            {showChildren || alwaysShowChildren && children}
+            {showChildren || (alwaysShowChildren && children)}
         </Animatable.View>
     );
 };

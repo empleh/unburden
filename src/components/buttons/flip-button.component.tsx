@@ -1,14 +1,16 @@
 import React from 'react';
 import { StyleSheet, View, Image } from 'react-native';
+import { useAnimationFunctions, useAnimationState } from '../../contexts/animation.context';
 import useKeyboardEvents from '../../hooks/keyboard.hooks';
-import Images from "../../images";
+import Images from '../../images';
 import AppButton from './app-button.component';
 
-//Icons made by <a href="https://www.flaticon.com/authors/becris" title="Becris">Becris</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
-const FlipButton = (props: { flipMode: () => void; animationRunning: boolean }) => {
+const FlipButton = () => {
     const { keyboardOpen, screenHeight } = useKeyboardEvents();
+    const { isAnimating } = useAnimationState();
+    const { flipMode } = useAnimationFunctions();
 
-    if (!keyboardOpen || props.animationRunning) {
+    if (!keyboardOpen || isAnimating) {
         return null;
     }
 
@@ -17,7 +19,7 @@ const FlipButton = (props: { flipMode: () => void; animationRunning: boolean }) 
     return (
         <View style={[styles.actions, { top: buttonTop }]}>
             <View style={styles.buttonPosition}>
-                <AppButton onPress={props.flipMode} style={styles.floatingButton}>
+                <AppButton onPress={flipMode} style={styles.floatingButton}>
                     <Image source={Images.flipIcon} style={styles.image} />
                 </AppButton>
             </View>
@@ -40,12 +42,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         borderRadius: 32,
     },
-    image:{
+    image: {
         tintColor: 'white',
         backgroundColor: 'transparent',
         height: 32,
         width: 32,
-    }
+    },
 });
 
 export default FlipButton;

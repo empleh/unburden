@@ -1,12 +1,15 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
+import { useAnimationFunctions, useAnimationState } from '../../contexts/animation.context';
 import useKeyboardEvents from '../../hooks/keyboard.hooks';
 import AppButton from './app-button.component';
 
-const ReleaseButton = (props: { startAnimation: () => void; animationRunning: boolean }) => {
+const ReleaseButton = () => {
     const { keyboardOpen, screenHeight } = useKeyboardEvents();
+    const { isAnimating } = useAnimationState();
+    const { animationStart } = useAnimationFunctions();
 
-    if (!keyboardOpen || props.animationRunning) {
+    if (!keyboardOpen || isAnimating) {
         return null;
     }
 
@@ -15,7 +18,7 @@ const ReleaseButton = (props: { startAnimation: () => void; animationRunning: bo
     return (
         <View style={[styles.actions, { top: buttonTop }]}>
             <View style={styles.buttonPosition}>
-                <AppButton onPress={props.startAnimation} style={styles.floatingButton}>
+                <AppButton onPress={animationStart} style={styles.floatingButton}>
                     <Text style={styles.buttonText}>Let Go</Text>
                 </AppButton>
             </View>
