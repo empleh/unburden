@@ -7,7 +7,7 @@ import AppButton from './app-button.component';
 const ReleaseButton = () => {
     const { keyboardOpen, screenHeight } = useKeyboardEvents();
     const { isAnimating } = useAnimationState();
-    const { animationStart } = useAnimationFunctions();
+    const { animateMessage } = useAnimationFunctions();
 
     if (!keyboardOpen || isAnimating) {
         return null;
@@ -18,7 +18,7 @@ const ReleaseButton = () => {
     return (
         <View style={[styles.actions, { top: buttonTop }]}>
             <View style={styles.buttonPosition}>
-                <AppButton onPress={animationStart} style={styles.floatingButton}>
+                <AppButton onPress={animateMessage} style={styles.floatingButton}>
                     <Text style={styles.buttonText}>Let Go</Text>
                 </AppButton>
             </View>

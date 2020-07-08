@@ -6,6 +6,7 @@ import SpriteSheet from 'rn-sprite-sheet';
 import { SpriteSheets } from '../animations/sprite-sheets';
 
 const EnvelopeBackground = (props: IAnimationProps & { showEnvelope: boolean }) => {
+    console.log('envelop background');
     const spriteSheet = useRef();
     const window = Dimensions.get('window');
 

@@ -1,26 +1,25 @@
 import React, { createContext, memo, PropsWithChildren, useCallback, useContext, useEffect, useState } from 'react';
 import { Keyboard } from 'react-native';
-import { Animations } from '../animations';
 import { MessageConstants } from '../models/message-constants';
 
 export interface IAnimationState {
     alwaysShowChildren: boolean;
-    animateWrapper: boolean;
-    animateMessage: boolean;
+    animatingAction: boolean;
+    animatingMessage: boolean;
+    animatingReset: boolean;
     coverFooter: boolean;
     isAnimating: boolean;
     messagePlaceholder: string;
     messagePrompt: string;
-    step: number;
 }
 
 export interface IAnimationFunctions {
-    animationComplete: () => void;
-    animationStart: () => void;
+    animateMessage: () => void;
+    completeAction: () => void;
+    completeMessage: () => void;
+    completeReset: () => void;
     flipMode: () => void;
-    getCurrentAnimation: () => {};
     setCoverFooter: (coverFooter: boolean) => void;
-    setStep: (step: number) => void;
 }
 
 export const AnimationStateContext = createContext({} as IAnimationState);
@@ -31,9 +30,9 @@ export const AnimationFunctionsProvider = memo(({ children, ...rest }: PropsWith
 });
 
 export const AnimationContainer = ({ children }: PropsWithChildren<{}>) => {
-    const [step, setStep] = useState(1);
-    const [animateWrapper, setAnimateWrapper] = useState(false);
-    const [animateMessage, setAnimateMessage] = useState(false);
+    const [animatingAction, setAnimateAction] = useState(false);
+    const [animatingMessage, setAnimateMessage] = useState(false);
+    const [animatingReset, setAnimateReset] = useState(false);
     const [alwaysShowChildren, setAlwaysShowChildren] = useState(true);
     const [coverFooter, setCoverFooter] = useState(false);
 
@@ -43,31 +42,37 @@ export const AnimationContainer = ({ children }: PropsWithChildren<{}>) => {
 
     const state: IAnimationState = {
         alwaysShowChildren,
-        animateMessage,
-        animateWrapper,
+        animatingAction,
+        animatingMessage,
+        animatingReset,
         coverFooter,
-        isAnimating: animateMessage || animateWrapper,
+        isAnimating: animatingAction || animatingMessage || animatingReset,
         messagePlaceholder,
         messagePrompt,
-        step,
     };
 
-    const animationStart = useCallback(() => {
+    const animateMessage = useCallback(() => {
         Keyboard.dismiss();
         setAnimateMessage(true);
     }, []);
 
-    const animationComplete = useCallback(() => {
-        setAnimateMessage(false);
+    const completeAction = useCallback(() => {
+        console.log('action complete');
+        setAnimateAction(false);
+        setAnimateReset(true);
     }, []);
 
-    const getCurrentAnimation = useCallback(() => {
-        if (step === 3) {
-            return Animations.slideIn();
-        }
+    const completeMessage = useCallback(() => {
+        console.log('message completed');
+        setAnimateMessage(false);
+        setAnimateAction(true);
+        setCoverFooter(false);
+    }, []);
 
-        return () => {};
-    }, [step]);
+    const completeReset = useCallback(() => {
+        console.log('reset complete');
+        setAnimateReset(false);
+    }, []);
 
     const flipMode = useCallback(() => {
         setShowGratitude(!showGratitude);
@@ -86,10 +91,10 @@ export const AnimationContainer = ({ children }: PropsWithChildren<{}>) => {
     return (
         <AnimationStateContext.Provider value={state}>
             <AnimationFunctionsProvider
-                setStep={setStep}
-                animationComplete={animationComplete}
-                animationStart={animationStart}
-                getCurrentAnimation={getCurrentAnimation}
+                animateMessage={animateMessage}
+                completeAction={completeAction}
+                completeMessage={completeMessage}
+                completeReset={completeReset}
                 setCoverFooter={setCoverFooter}
                 flipMode={flipMode}
             >

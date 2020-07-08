@@ -7,24 +7,25 @@ import sharedStyles from '../../sharedStyles';
 const AnimationWrapper = ({ children }: PropsWithChildren<{}>) => {
     const animationRef = useRef();
     const [showChildren, setShowChildren] = useState(false);
-    const { animationComplete, getCurrentAnimation } = useAnimationFunctions();
-    const { animateWrapper, alwaysShowChildren } = useAnimationState();
+    const { completeAction } = useAnimationFunctions();
+    const { animatingAction, alwaysShowChildren } = useAnimationState();
 
     useEffect(() => {
-        if (animateWrapper) {
+        if (animatingAction) {
             runAnimation();
         }
-    }, [animateWrapper]);
+    }, [animatingAction]);
 
     const runAnimation = async () => {
+        console.log('run animation');
         setTimeout(() => {
             setShowChildren(true);
         }, 100);
 
         // @ts-ignore
-        await animationRef.current.animate(getCurrentAnimation(), Animations.animationStepTime);
+        await animationRef.current.animate(Animations.slideIn(), Animations.animationStepTime);
 
-        animationComplete();
+        completeAction();
     };
 
     return (

@@ -16,14 +16,14 @@ const MessageInput = ({ navigation }: INavigationProps) => {
     const foregroundRef = useRef();
     const backgroundRef = useRef();
 
-    const { isAnimating, animateMessage, messagePlaceholder, messagePrompt } = useAnimationState();
-    const { animationComplete, setCoverFooter } = useAnimationFunctions();
+    const { isAnimating, animatingMessage, messagePlaceholder, messagePrompt } = useAnimationState();
+    const { completeMessage, setCoverFooter } = useAnimationFunctions();
 
     useEffect(() => {
-        if (animateMessage) {
+        if (animatingMessage) {
             runAnimation();
         }
-    }, [animateMessage]);
+    }, [animatingMessage]);
 
     const runAnimation = async () => {
         // @ts-ignore
@@ -47,10 +47,10 @@ const MessageInput = ({ navigation }: INavigationProps) => {
                 <MessageInputContent blockKeyboard={isAnimating} navigation={navigation} placeholder={messagePlaceholder} prompt={messagePrompt} />
             </Animatable.View>
             <Animatable.View ref={backgroundRef} useNativeDriver style={[sharedStyles.staticEnvelope, { zIndex: 1 }]}>
-                <EnvelopeBackground startAnimation={animateEnvelope} showEnvelope={animateMessage} animationComplete={animationComplete} />
+                <EnvelopeBackground startAnimation={animateEnvelope} showEnvelope={animatingMessage} animationComplete={completeMessage} />
             </Animatable.View>
             <Animatable.View ref={foregroundRef} useNativeDriver style={[sharedStyles.staticEnvelope, { zIndex: 20 }]}>
-                <EnvelopeWrapper startAnimation={animateEnvelope} showEnvelope={animateMessage} animationComplete={() => {}} />
+                <EnvelopeWrapper startAnimation={animateEnvelope} showEnvelope={animatingMessage} animationComplete={() => {}} />
             </Animatable.View>
         </View>
     );
