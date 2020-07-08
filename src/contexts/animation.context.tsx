@@ -74,7 +74,6 @@ export const AnimationContainer = ({ children }: PropsWithChildren<{}>) => {
     }, [showGratitude]);
 
     useEffect(() => {
-        console.log('effecting');
         if (showGratitude) {
             setMessagePlaceholder(MessageConstants.GratitudePlaceholder);
             setMessagePrompt(MessageConstants.GratitudePrompt);

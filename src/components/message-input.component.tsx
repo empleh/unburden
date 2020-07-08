@@ -16,7 +16,7 @@ const MessageInput = ({ navigation }: INavigationProps) => {
     const foregroundRef = useRef();
     const backgroundRef = useRef();
 
-    const { animateMessage, messagePlaceholder, messagePrompt } = useAnimationState();
+    const { isAnimating, animateMessage, messagePlaceholder, messagePrompt } = useAnimationState();
     const { animationComplete, setCoverFooter } = useAnimationFunctions();
 
     useEffect(() => {
@@ -44,7 +44,7 @@ const MessageInput = ({ navigation }: INavigationProps) => {
     return (
         <View style={[sharedStyles.wrapper, sharedStyles.sidePadding]}>
             <Animatable.View ref={animationRef} useNativeDriver style={[sharedStyles.wrapper, { zIndex: 10 }]}>
-                <MessageInputContent blockKeyboard={true} navigation={navigation} placeholder={messagePlaceholder} prompt={messagePrompt} />
+                <MessageInputContent blockKeyboard={isAnimating} navigation={navigation} placeholder={messagePlaceholder} prompt={messagePrompt} />
             </Animatable.View>
             <Animatable.View ref={backgroundRef} useNativeDriver style={[sharedStyles.staticEnvelope, { zIndex: 1 }]}>
                 <EnvelopeBackground startAnimation={animateEnvelope} showEnvelope={animateMessage} animationComplete={animationComplete} />
