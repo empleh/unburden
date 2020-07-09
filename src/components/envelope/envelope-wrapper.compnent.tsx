@@ -1,27 +1,26 @@
 import React, { useEffect, useRef } from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native';
+import { IEnvelopeProps } from "../../models/envelope-props";
 import sharedStyles from '../../sharedStyles';
-import { IAnimationProps } from '../../models/animation.props';
 import { StyleVariables } from '../../style_variables';
 import SpriteSheet from 'rn-sprite-sheet';
 import { SpriteSheets } from '../animations/sprite-sheets';
 
-const EnvelopeWrapper = (props: IAnimationProps & { showEnvelope: boolean }) => {
-    console.log('envelope wrapper');
+const EnvelopeWrapper = ({ showEnvelope, animating, animationComplete }: IEnvelopeProps) => {
     const spriteSheet = useRef();
     const window = Dimensions.get('window');
 
     useEffect(() => {
-        if (props.startAnimation) {
+        if (animating) {
             runAnimation();
         }
-    }, [props.startAnimation]);
+    }, [animating]);
 
     useEffect(() => {
-        if (props.showEnvelope && !props.startAnimation) {
+        if (showEnvelope && !animating) {
             showMe();
         }
-    }, [props.showEnvelope, props.startAnimation]);
+    }, [showEnvelope, animating]);
 
     const showMe = () => {
         // @ts-ignore
@@ -40,13 +39,11 @@ const EnvelopeWrapper = (props: IAnimationProps & { showEnvelope: boolean }) => 
             fps: 2,
             resetAfterFinish: false,
             loop: false,
-            onFinish: () => {
-                props.animationComplete();
-            },
+            onFinish: animationComplete,
         });
     };
 
-    if (!props.showEnvelope) {
+    if (!showEnvelope) {
         return null;
     }
 

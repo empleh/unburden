@@ -2,22 +2,22 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { Animations } from '../../animations';
-import { IAnimationProps } from '../../models/animation.props';
+import { IAnimationProps } from '../../models/animation-props';
 import sharedStyles from '../../sharedStyles';
 import Envelope from '../envelope/envelope.compnent';
 import FireWave from './fire-wave.component';
 
-const Fireworks = (props: IAnimationProps) => {
+const Fireworks = ({ animating, animationComplete }: IAnimationProps) => {
     const window = Dimensions.get('window');
     const animationRef = useRef();
 
     const [firstGo, setFirstGo] = useState(false);
 
     useEffect(() => {
-        if (props.startAnimation) {
+        if (animating) {
             runAnimation();
         }
-    }, [props.startAnimation]);
+    }, [animating]);
 
     const runAnimation = async () => {
         setFirstGo(true);
@@ -35,7 +35,7 @@ const Fireworks = (props: IAnimationProps) => {
             <View style={styles.positioning}>
                 {firstGo && (
                     <View style={styles.first}>
-                        <FireWave width={window.width} startAnimation={firstGo} animationComplete={props.animationComplete} />
+                        <FireWave width={window.width} animating={firstGo} animationComplete={animationComplete} />
                     </View>
                 )}
             </View>

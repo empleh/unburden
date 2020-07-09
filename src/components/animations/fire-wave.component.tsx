@@ -1,17 +1,17 @@
 import React, { useEffect, useRef } from 'react';
 import { View } from 'react-native';
-import { IAnimationProps } from '../../models/animation.props';
+import { IAnimationProps } from '../../models/animation-props';
 import Images from './../../images';
 import SpriteSheet from 'rn-sprite-sheet';
 
-const FireWave = (props: { width: number } & IAnimationProps) => {
+const FireWave = ({ animating, width, animationComplete }: IAnimationProps & { width: number }) => {
     const spriteSheet = useRef();
 
     useEffect(() => {
-        if (props.startAnimation) {
+        if (animating) {
             runAnimation();
         }
-    }, [props.startAnimation]);
+    }, [animating]);
 
     const runAnimation = () => {
         // @ts-ignore
@@ -19,9 +19,7 @@ const FireWave = (props: { width: number } & IAnimationProps) => {
             type: 'go',
             fps: 24,
             resetAfterFinish: false,
-            onFinish: () => {
-                props.animationComplete();
-            },
+            onFinish: animationComplete,
         });
     };
 
@@ -33,7 +31,7 @@ const FireWave = (props: { width: number } & IAnimationProps) => {
         source: Images.fireWave,
         columns: 14,
         rows: 5,
-        width: props.width,
+        width,
         animations: {
             go: indexes,
         },

@@ -47,10 +47,10 @@ const MessageInput = ({ navigation }: INavigationProps) => {
                 <MessageInputContent blockKeyboard={isAnimating} navigation={navigation} placeholder={messagePlaceholder} prompt={messagePrompt} />
             </Animatable.View>
             <Animatable.View ref={backgroundRef} useNativeDriver style={[sharedStyles.staticEnvelope, { zIndex: 1 }]}>
-                <EnvelopeBackground startAnimation={animateEnvelope} showEnvelope={animatingMessage} animationComplete={completeMessage} />
+                <EnvelopeBackground animating={animateEnvelope} showEnvelope={animatingMessage} animationComplete={completeMessage} />
             </Animatable.View>
             <Animatable.View ref={foregroundRef} useNativeDriver style={[sharedStyles.staticEnvelope, { zIndex: 20 }]}>
-                <EnvelopeWrapper startAnimation={animateEnvelope} showEnvelope={animatingMessage} animationComplete={() => {}} />
+                <EnvelopeWrapper animating={animateEnvelope} showEnvelope={animatingMessage} animationComplete={() => {}} />
             </Animatable.View>
         </View>
     );

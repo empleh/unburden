@@ -3,14 +3,13 @@ import { View, StyleSheet, SafeAreaView } from 'react-native';
 import { AnimationContainer } from '../contexts/animation.context';
 import { INavigationProps } from '../models/navigation-props';
 import Constants from 'expo-constants';
-import AnimationWrapper from './animations/animation-wrapper.component';
+import AnimationSteps from "./animations/animation-steps.component";
 import AppFooter from './app-footer.component';
 import FlipButton from './buttons/flip-button.component';
 import Header from './header.component';
 import ReleaseButton from './buttons/release-button.component';
-import MessageInput from './message-input.component';
 
-const ApplicationContent = (props: INavigationProps) => {
+const ApplicationContent = ({ navigation }: INavigationProps) => {
     const paddingTop = Constants.statusBarHeight + 12;
     const safeViewStyles = { flex: 1, backgroundColor: 'white', paddingTop };
 
@@ -18,15 +17,9 @@ const ApplicationContent = (props: INavigationProps) => {
         <AnimationContainer>
             <View style={styles.container}>
                 <SafeAreaView style={safeViewStyles}>
-                    <Header navigation={props.navigation} showWhy={true} />
+                    <Header navigation={navigation} showWhy={true} />
 
-                    <View style={styles.top}>
-                        <View style={styles.wrapper}>
-                            <AnimationWrapper>
-                                <MessageInput navigation={props.navigation} />
-                            </AnimationWrapper>
-                        </View>
-                    </View>
+                    <AnimationSteps navigation={navigation} />
 
                     <FlipButton />
                     <ReleaseButton />

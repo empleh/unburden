@@ -1,11 +1,16 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, SafeAreaView } from 'react-native';
+import { useAnimationFunctions, useAnimationState } from '../../contexts/animation.context';
 import { INavigationProps } from '../../models/navigation-props';
 import { StyleVariables } from '../../style_variables';
+import AnimationContent from './animation-content.component';
 import AnimationWrapper from './animation-wrapper.component';
 import MessageInput from './../message-input.component';
 
-const AnimationSteps = (props: INavigationProps) => {
+const AnimationSteps = ({ navigation }: INavigationProps) => {
+    const { animatingReset } = useAnimationState();
+    const { completeReset } = useAnimationFunctions();
+
     /*    useEffect(() => {
         if (animating) {
             setAnimationStep(1);
@@ -58,11 +63,14 @@ const AnimationSteps = (props: INavigationProps) => {
     };*/
 
     return (
-        <View style={[styles.top]}>
+        <View style={styles.top}>
             <View style={styles.wrapper}>
-                <AnimationWrapper>
-                    <MessageInput navigation={props.navigation} />
-                </AnimationWrapper>
+                {!animatingReset && (
+                    <AnimationWrapper>
+                        <MessageInput navigation={navigation} />
+                    </AnimationWrapper>
+                )}
+                {animatingReset && <AnimationContent animating={true} animationComplete={completeReset} />}
             </View>
         </View>
     );

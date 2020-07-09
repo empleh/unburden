@@ -2,13 +2,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Dimensions, View } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { Animations } from '../../animations';
-import { IAnimationProps } from '../../models/animation.props';
+import { IAnimationProps } from "../../models/animation-props";
 import sharedStyles from '../../sharedStyles';
 import Envelope from '../envelope/envelope.compnent';
 import SpriteSheet from 'rn-sprite-sheet';
 import { SpriteSheets } from './sprite-sheets';
 
-const ShredAnimation = (props: IAnimationProps) => {
+const ShredAnimation = ({ animating, animationComplete }: IAnimationProps) => {
     const window = Dimensions.get('window');
     const shredderRef = useRef();
     const envelopeRef = useRef();
@@ -18,10 +18,10 @@ const ShredAnimation = (props: IAnimationProps) => {
     const [animateShredderShow, setAnimateShredderShow] = useState(false);
 
     useEffect(() => {
-        if (props.startAnimation) {
+        if (animating) {
             runAnimation();
         }
-    }, [props.startAnimation]);
+    }, [animating]);
 
     useEffect(() => {
         if (animateRotateEnvelope) {
@@ -76,7 +76,7 @@ const ShredAnimation = (props: IAnimationProps) => {
                 // @ts-ignore
                 await shredderRef.current.fadeOut(Animations.animationStepTime / 2);
 
-                props.animationComplete();
+                animationComplete();
             },
         });
     };
