@@ -1,11 +1,11 @@
 import React from 'react';
-import { IAnimationProps } from "../../models/animation-props";
+import { IAnimationProps } from '../../models/animation-props';
 import sharedStyles from '../../sharedStyles';
 import { View } from 'react-native';
 import Fireworks from './fireworks.component';
 import ShredAnimation from './shred-animation.component';
 
-const AnimationContent = ({ animationComplete }: IAnimationProps) => {
+const AnimationContent = ({ animationComplete }: Partial<IAnimationProps>) => {
     const animationChoices = [
         /*{
             component: Fireworks,

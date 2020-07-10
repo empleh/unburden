@@ -1,30 +1,28 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ImageBackground, StyleSheet, TextInput, View, Text } from 'react-native';
+import { useAnimationState } from '../contexts/animation.context';
 import Images from '../images';
-import { INavigationProps } from "../models/navigation-props";
+import { INavigationProps } from '../models/navigation-props';
 import sharedStyles from '../sharedStyles';
 import { StyleVariables } from '../style_variables';
 
-export interface IMessageInputContentProps extends INavigationProps {
-    placeholder: string;
-    prompt: string;
-    blockKeyboard?: boolean;
-}
-
-const MessageInputContent = ({ placeholder, prompt, blockKeyboard, navigation }: IMessageInputContentProps) => {
+const MessageInputContent = ({ navigation }: INavigationProps) => {
     const [message, setMessage] = useState('');
     const inputRef = useRef();
+    const { isAnimating, messagePlaceholder, messagePrompt } = useAnimationState();
 
     const setFocus = () => {
-        if (inputRef && inputRef.current && !blockKeyboard) {
+        if (inputRef && inputRef.current && !isAnimating) {
             // @ts-ignore
             inputRef.current.focus();
         }
     };
 
     useEffect(() => {
-        setFocus();
-    }, []);
+        if (!isAnimating) {
+            setFocus();
+        }
+    }, [isAnimating]);
 
     useEffect(() => {
         const subToFocus = navigation.addListener('willFocus', () => {
@@ -44,8 +42,8 @@ const MessageInputContent = ({ placeholder, prompt, blockKeyboard, navigation }:
         onChangeText: setMessage,
         value: message,
         multiline: true,
-        placeholder: placeholder,
-        autoFocus: !blockKeyboard,
+        placeholder: messagePlaceholder,
+        autoFocus: !isAnimating,
         ref: inputRef,
     };
 
@@ -56,7 +54,7 @@ const MessageInputContent = ({ placeholder, prompt, blockKeyboard, navigation }:
             resizeMode="stretch"
         >
             <View style={[styles.inputWrapper]}>
-                <Text style={[styles.inputPrompt]}>{prompt}</Text>
+                <Text style={[styles.inputPrompt]}>{messagePrompt}</Text>
                 <TextInput {...inputProps} />
             </View>
         </ImageBackground>

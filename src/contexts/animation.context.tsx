@@ -3,7 +3,6 @@ import { Keyboard } from 'react-native';
 import { MessageConstants } from '../models/message-constants';
 
 export interface IAnimationState {
-    alwaysShowChildren: boolean;
     animatingAction: boolean;
     animatingMessage: boolean;
     animatingReset: boolean;
@@ -33,15 +32,12 @@ export const AnimationContainer = ({ children }: PropsWithChildren<{}>) => {
     const [animatingAction, setAnimateAction] = useState(false);
     const [animatingMessage, setAnimateMessage] = useState(false);
     const [animatingReset, setAnimateReset] = useState(false);
-    const [alwaysShowChildren, setAlwaysShowChildren] = useState(true);
     const [coverFooter, setCoverFooter] = useState(false);
-
     const [messagePlaceholder, setMessagePlaceholder] = useState(MessageConstants.LetGoPlaceholder);
     const [messagePrompt, setMessagePrompt] = useState(MessageConstants.LetGoPrompt);
     const [showGratitude, setShowGratitude] = useState(false);
 
     const state: IAnimationState = {
-        alwaysShowChildren,
         animatingAction,
         animatingMessage,
         animatingReset,
@@ -57,20 +53,18 @@ export const AnimationContainer = ({ children }: PropsWithChildren<{}>) => {
     }, []);
 
     const completeAction = useCallback(() => {
-        console.log('action complete');
-        setAnimateAction(false);
         setAnimateReset(true);
+        setAnimateAction(false);
     }, []);
 
     const completeMessage = useCallback(() => {
-        console.log('message completed');
-        setAnimateMessage(false);
         setAnimateAction(true);
+        setAnimateMessage(false);
         setCoverFooter(false);
+        flipMode();
     }, []);
 
     const completeReset = useCallback(() => {
-        console.log('reset complete');
         setAnimateReset(false);
     }, []);
 

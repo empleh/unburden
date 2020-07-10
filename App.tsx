@@ -9,10 +9,14 @@ export default function App() {
     const [loaded, setLoaded] = useState(false);
     useEffect(() => {
         const loadAssets = async () => {
-            await Object.keys(Images).forEach(async (i) => await Asset.fromModule(Images[i]).downloadAsync());
+            await Object.keys(Images).forEach(async i => await Asset.fromModule(Images[i]).downloadAsync());
             await Font.loadAsync({
                 'title-font': require('./assets/fonts/Grestal.ttf'),
             });
+
+            if (__DEV__) {
+                require('log-timestamp');
+            }
 
             setLoaded(true);
         };
