@@ -1,11 +1,12 @@
 import { Linking } from 'expo';
 import React from 'react';
 import { View, StyleSheet, SafeAreaView, Text } from 'react-native';
+import { AnimationContainer } from '../contexts/animation.context';
 import { INavigationProps } from '../models/navigation-props';
 import Header from './header.component';
 import NavButton from './buttons/nav-button.component';
 
-const WhyContent = (props: INavigationProps) => {
+const WhyContent = ({ navigation }: INavigationProps) => {
     const url = 'https://journals.lww.com/psychosomaticmedicine/Abstract/2013/07000/Expressive_Writing_and_Wound_Healing_in_Older.10.aspx';
     const openStudy = () => {
         Linking.openURL(url);
@@ -20,21 +21,23 @@ const WhyContent = (props: INavigationProps) => {
     const benefits = 'Feel better\n';
     const closingMessage = `\n\n${benefits}\n${callToAction}`;
     return (
-        <View style={styles.container}>
-            <SafeAreaView style={{ flex: 0, backgroundColor: 'white', paddingTop: 40 }} />
+        <AnimationContainer navigation={navigation}>
+            <View style={styles.container}>
+                <SafeAreaView style={{ flex: 0, backgroundColor: 'white', paddingTop: 40 }} />
 
-            <Header navigation={props.navigation} showBack={true} />
+                <Header showBack={true} />
 
-            <View style={styles.message}>
-                <Text>{message}</Text>
+                <View style={styles.message}>
+                    <Text>{message}</Text>
 
-                <View style={styles.link}>
-                    <NavButton text="Read the study" onPress={openStudy} />
+                    <View style={styles.link}>
+                        <NavButton text="Read the study" onPress={openStudy} />
+                    </View>
+
+                    <Text>{closingMessage}</Text>
                 </View>
-
-                <Text>{closingMessage}</Text>
             </View>
-        </View>
+        </AnimationContainer>
     );
 };
 

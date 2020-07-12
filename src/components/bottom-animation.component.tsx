@@ -1,22 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { View, StyleSheet, ImageBackground, Dimensions } from 'react-native';
 import { Animations } from '../animations';
 import { StyleVariables } from '../style_variables';
 import * as Animatable from 'react-native-animatable';
 
-const BottomAnimation = (props: { triggerClear: boolean }) => {
+const BottomAnimation = ({ triggerClear }: { triggerClear: boolean }) => {
     const window = Dimensions.get('window');
     const [elementHeight, setElementHeight] = useState(0);
     const [showContent, setShowContent] = useState(false);
     const animationRef = useRef();
 
-    useEffect(() => {
-        if (props.triggerClear && animationRef && animationRef.current) {
-            runBottomAnimation();
-        }
-    }, [props.triggerClear]);
-
-    const runBottomAnimation = async () => {
+    const runBottomAnimation = useCallback(async () => {
         await Animations.sleep(1000);
         setShowContent(true);
         // @ts-ignore
@@ -26,7 +20,13 @@ const BottomAnimation = (props: { triggerClear: boolean }) => {
         await animationRef.current.animate(Animations.drop(window.height), Animations.mainAnimationTime / 2);
 
         setShowContent(false);
-    };
+    }, [window.height, elementHeight]);
+
+    useEffect(() => {
+        if (triggerClear && animationRef && animationRef.current) {
+            runBottomAnimation();
+        }
+    }, [triggerClear, runBottomAnimation]);
 
     const layoutComplete = (event: any) => {
         setElementHeight(event.nativeEvent.layout.height);

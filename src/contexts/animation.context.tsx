@@ -1,6 +1,7 @@
 import React, { createContext, memo, PropsWithChildren, useCallback, useContext, useEffect, useState } from 'react';
-import { Keyboard } from 'react-native';
+import { Keyboard, NativeEventSubscription } from 'react-native';
 import { MessageConstants } from '../models/message-constants';
+import { INavigationProps } from '../models/navigation-props';
 
 export interface IAnimationState {
     animatingAction: boolean;
@@ -18,6 +19,8 @@ export interface IAnimationFunctions {
     completeMessage: () => void;
     completeReset: () => void;
     flipMode: () => void;
+    navigate: (route: string) => void;
+    navAddListener: (listenFor: string, callback: () => void) => NativeEventSubscription;
     setCoverFooter: (coverFooter: boolean) => void;
 }
 
@@ -28,7 +31,7 @@ export const AnimationFunctionsProvider = memo(({ children, ...rest }: PropsWith
     return <AnimationFunctionsContext.Provider value={rest}>{children}</AnimationFunctionsContext.Provider>;
 });
 
-export const AnimationContainer = ({ children }: PropsWithChildren<{}>) => {
+export const AnimationContainer = ({ navigation, children }: PropsWithChildren<INavigationProps>) => {
     const [animatingAction, setAnimateAction] = useState(false);
     const [animatingMessage, setAnimateMessage] = useState(false);
     const [animatingReset, setAnimateReset] = useState(false);
@@ -47,6 +50,10 @@ export const AnimationContainer = ({ children }: PropsWithChildren<{}>) => {
         messagePrompt,
     };
 
+    const flipMode = useCallback(() => {
+        setShowGratitude(!showGratitude);
+    }, [showGratitude, setShowGratitude]);
+
     const animateMessage = useCallback(() => {
         Keyboard.dismiss();
         setAnimateMessage(true);
@@ -62,15 +69,25 @@ export const AnimationContainer = ({ children }: PropsWithChildren<{}>) => {
         setAnimateMessage(false);
         setCoverFooter(false);
         flipMode();
-    }, []);
+    }, [flipMode]);
 
     const completeReset = useCallback(() => {
         setAnimateReset(false);
     }, []);
 
-    const flipMode = useCallback(() => {
-        setShowGratitude(!showGratitude);
-    }, [showGratitude]);
+    const navigate = useCallback(
+        (route: string) => {
+            navigation.navigate(route);
+        },
+        [navigation]
+    );
+
+    const navAddListener = useCallback(
+        (listenFor: string, callback: () => void) => {
+            return navigation.addListener(listenFor, callback);
+        },
+        [navigation]
+    );
 
     useEffect(() => {
         if (showGratitude) {
@@ -91,6 +108,8 @@ export const AnimationContainer = ({ children }: PropsWithChildren<{}>) => {
                 completeReset={completeReset}
                 setCoverFooter={setCoverFooter}
                 flipMode={flipMode}
+                navigate={navigate}
+                navAddListener={navAddListener}
             >
                 {children}
             </AnimationFunctionsProvider>

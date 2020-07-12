@@ -14,12 +14,12 @@ const ApplicationContent = ({ navigation }: INavigationProps) => {
     const safeViewStyles = { flex: 1, backgroundColor: 'white', paddingTop };
 
     return (
-        <AnimationContainer>
+        <AnimationContainer navigation={navigation}>
             <View style={styles.container}>
                 <SafeAreaView style={safeViewStyles}>
-                    <Header navigation={navigation} showWhy={true} />
+                    <Header showWhy={true} />
 
-                    <AnimationSteps navigation={navigation} />
+                    <AnimationSteps />
 
                     <FlipButton />
                     <ReleaseButton />

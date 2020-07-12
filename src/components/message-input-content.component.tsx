@@ -1,31 +1,31 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { ImageBackground, StyleSheet, TextInput, View, Text } from 'react-native';
-import { useAnimationState } from '../contexts/animation.context';
+import { useAnimationFunctions, useAnimationState } from '../contexts/animation.context';
 import Images from '../images';
-import { INavigationProps } from '../models/navigation-props';
 import sharedStyles from '../sharedStyles';
 import { StyleVariables } from '../style_variables';
 
-const MessageInputContent = ({ navigation }: INavigationProps) => {
+const MessageInputContent = () => {
     const [message, setMessage] = useState('');
     const inputRef = useRef();
     const { isAnimating, messagePlaceholder, messagePrompt } = useAnimationState();
+    const { navAddListener } = useAnimationFunctions();
 
-    const setFocus = () => {
+    const setFocus = useCallback( () => {
         if (inputRef && inputRef.current && !isAnimating) {
             // @ts-ignore
             inputRef.current.focus();
         }
-    };
+    }, [isAnimating]);
 
     useEffect(() => {
         if (!isAnimating) {
             setFocus();
         }
-    }, [isAnimating]);
+    }, [isAnimating, setFocus]);
 
     useEffect(() => {
-        const subToFocus = navigation.addListener('willFocus', () => {
+        const subToFocus = navAddListener('willFocus', () => {
             setFocus();
         });
         return () => {
@@ -35,7 +35,7 @@ const MessageInputContent = ({ navigation }: INavigationProps) => {
                 subToFocus.unsubscribe();
             }
         };
-    }, []);
+    }, [navAddListener, setFocus]);
 
     const inputProps = {
         style: [styles.input, sharedStyles.alignTextTop],

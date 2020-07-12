@@ -1,13 +1,12 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useAnimationFunctions, useAnimationState } from '../../contexts/animation.context';
-import { INavigationProps } from '../../models/navigation-props';
 import { StyleVariables } from '../../style_variables';
 import AnimationContent from './animation-content.component';
 import AnimationWrapper from './animation-wrapper.component';
 import MessageInput from './../message-input.component';
 
-const AnimationSteps = ({ navigation }: INavigationProps) => {
+const AnimationSteps = () => {
     const { animatingAction } = useAnimationState();
     const { completeAction } = useAnimationFunctions();
 
@@ -16,7 +15,7 @@ const AnimationSteps = ({ navigation }: INavigationProps) => {
             <View style={styles.wrapper}>
                 {!animatingAction && (
                     <AnimationWrapper>
-                        <MessageInput navigation={navigation} />
+                        <MessageInput />
                     </AnimationWrapper>
                 )}
                 {animatingAction && <AnimationContent animationComplete={completeAction} />}
